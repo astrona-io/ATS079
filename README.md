@@ -1,18 +1,19 @@
-# ATS079 — CNPA: Continuous Delivery & Platform Engineering
+# Continuous Delivery & Platform Engineering (ATS079)
 
-Preparation for the **Continuous Delivery & Platform Engineering** domain of **Certified Cloud Native Platform Engineering Associate (CNPA)**.
-The published domain weight is **16%**. This repository belongs to
-the [ATP016 training path](https://github.com/astrona-io/ATP016).
+Certified Cloud Native Platform Engineering Associate (CNPA): Continuous Delivery & Platform Engineering, worth 16% of the official curriculum. This course belongs to ATP016.
 
-**Status:** Preparation scaffold; content authoring has not started.
+Developed reading explains mechanisms, responsible components, examples and limits. Every section has an introduction and every module closes with a summary. Reusable YAML checks contain 5–15 questions per bank. Technical content remains draft. No labs or playgrounds are included.
 
-The initial commit reserves the curriculum structure. Lessons, playgrounds,
-labs and assessments are planned and are not ready for learner use.
+## Course Outline
 
-See [CURRICULUM.md](CURRICULUM.md) for the objective map and authoring checklist,
-[astrona.yaml](astrona.yaml) for the course manifest, and
-[CLAUDE.md](CLAUDE.md) for writing and environment rules.
+| Section / module | Module | Teaching files |
+| --- | --- | --- |
+| 010 / 01 | DAG Dependencies, Conditional Tasks And Parallel Work | DAG Dependencies, Conditional Tasks And Parallel Work |
+| 020 / 01 | Incident Roles, Evidence And Platform Recovery | Incident Roles, Evidence And Platform Recovery |
+| 030 / 01 | Build Artifacts, Notifications And Observable Delivery Contracts | Build Artifacts, Notifications And Observable Delivery Contracts |
+| 040 / 01 | Managed Runtimes, Agents And Policy Boundaries | Managed Runtimes, Agents And Policy Boundaries |
+| 050 / 01 | Application Source, Destination And Project Boundaries | Application Source, Destination And Project Boundaries |
 
-Curriculum source: [official CNPA page](https://training.linuxfoundation.org/certification/certified-cloud-native-platform-engineering-associate-cnpa/), checked 2026-10-10.
-License: [Apache-2.0](LICENSE). Curriculum objectives retain attribution to
-The Linux Foundation and CNCF; see [CNCF curriculum licensing](https://github.com/cncf/curriculum).
+## Author Review
+
+See [curriculum coverage](CURRICULUM.md), [primary sources](SOURCES.md), [question-bank documentation](ASSESSMENTS.md) and [contribution instructions](CONTRIBUTING.md). No runtime execution is claimed.
