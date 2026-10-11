@@ -1,5 +1,3 @@
 # Introduction
 
-This introduction is planned. It will cover the welcome, machine preparation,
-and how this course is made. The technical course will begin with the first
-objective of this exam domain. Content authoring has not started.
+This introduction explains the Continuous Delivery & Platform Engineering course, reading method and author review. The domain represents 16% of Certified Cloud Native Platform Engineering Associate (CNPA) and belongs to ATP016. Read the welcome, requirements and authoring explanation before the technical sections.
