@@ -36,7 +36,7 @@ modules:
 - id: module-010
   title: Continuous Integration Pipelines Overview
   description: Developed reading and reasoning for Continuous Integration Pipelines Overview.
-  draft: true
+  status: alpha
   content:
   - type: reading
     title: Continuous Integration Pipelines Overview
@@ -53,7 +53,7 @@ modules:
 - id: module-020
   title: Incident Response in Platform Engineering
   description: Developed reading and reasoning for Incident Response in Platform Engineering.
-  draft: true
+  status: alpha
   content:
   - type: reading
     title: Incident Response in Platform Engineering
@@ -70,7 +70,7 @@ modules:
 - id: module-030
   title: CI/CD Relationship Fundamentals
   description: Developed reading and reasoning for CI/CD Relationship Fundamentals.
-  draft: true
+  status: alpha
   content:
   - type: reading
     title: CI/CD Relationship Fundamentals
@@ -87,7 +87,7 @@ modules:
 - id: module-040
   title: GitOps Basics and Workflows
   description: Developed reading and reasoning for GitOps Basics and Workflows.
-  draft: true
+  status: alpha
   content:
   - type: reading
     title: GitOps Basics and Workflows
@@ -104,7 +104,7 @@ modules:
 - id: module-050
   title: GitOps for Application Environments
   description: Developed reading and reasoning for GitOps for Application Environments.
-  draft: true
+  status: alpha
   content:
   - type: reading
     title: GitOps for Application Environments
