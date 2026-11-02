@@ -1,0 +1,302 @@
+schema_version: 1
+kind: question_bank
+id: ats079-domain-review
+course_id: ATS079
+exam_code: CNPA
+status: draft
+provenance: Original practice material; not official examination questions.
+scope:
+  type: domain
+  id: domain-review
+  title: Continuous Delivery & Platform Engineering
+placement:
+  position: after
+  reading: sections/section-050/module-01/course-02-summary.md
+questions:
+- id: ats079-domain-review-q01
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Explain acyclic task dependencies and eligible parallelism.
+  source_readings:
+  - sections/section-010/module-01/course-01-dag-dependencies-conditional-tasks-and-parallel-work.md
+  prompt: What makes a dependency graph acyclic?
+  options:
+  - id: a
+    text: Every task must have exactly one child.
+    explanation: DAGs can branch and join.
+  - id: b
+    text: No dependency path returns to its own starting task.
+    explanation: That permits a coherent forward execution order.
+  - id: c
+    text: Every task runs at the same instant.
+    explanation: Independent work can be parallel without universal simultaneity.
+  correct_option: b
+  explanation: That permits a coherent forward execution order.
+- id: ats079-domain-review-q02
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Distinguish data references from explicit scheduling dependencies.
+  source_readings:
+  - sections/section-010/module-01/course-01-dag-dependencies-conditional-tasks-and-parallel-work.md
+  prompt: Why define dependencies alongside output references?
+  options:
+  - id: a
+    text: A consumer must wait for the relevant producer outcome.
+    explanation: Data identity alone does not justify arbitrary scheduling.
+  - id: b
+    text: Dependencies grant storage credentials.
+    explanation: Credential access is separate.
+  - id: c
+    text: References always create every possible execution order automatically.
+    explanation: The supported dependency model still matters.
+  correct_option: a
+  explanation: Data identity alone does not justify arbitrary scheduling.
+- id: ats079-domain-review-q03
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Interpret dependency results and fail-fast behavior.
+  source_readings:
+  - sections/section-010/module-01/course-01-dag-dependencies-conditional-tasks-and-parallel-work.md
+  prompt: What does fail-fast not guarantee?
+  options:
+  - id: a
+    text: A change to which new tasks become eligible.
+    explanation: That is within its relevant scheduling concern.
+  - id: b
+    text: Failure handling decisions.
+    explanation: Those are part of DAG execution semantics.
+  - id: c
+    text: Reversal of already completed external effects.
+    explanation: Scheduling policy is not a transaction rollback.
+  correct_option: c
+  explanation: Scheduling policy is not a transaction rollback.
+- id: ats079-domain-review-q04
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Distinguish platform incidents from application-specific failures.
+  source_readings:
+  - sections/section-020/module-01/course-01-incident-roles-evidence-and-platform-recovery.md
+  prompt: What should early incident assessment establish?
+  options:
+  - id: a
+    text: Only the total number of installed plugins.
+    explanation: That does not identify impact.
+  - id: b
+    text: User impact and the affected capability or service boundary.
+    explanation: That guides coordination and mitigation.
+  - id: c
+    text: Only which person to blame.
+    explanation: Blame does not restore service.
+  correct_option: b
+  explanation: That guides coordination and mitigation.
+- id: ats079-domain-review-q05
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Explain incident coordination, mitigation and communication.
+  source_readings:
+  - sections/section-020/module-01/course-01-incident-roles-evidence-and-platform-recovery.md
+  prompt: Must complete root-cause analysis always precede mitigation?
+  options:
+  - id: a
+    text: No; restoring acceptable service can come first under controlled coordination.
+    explanation: Cause investigation and mitigation have different immediate goals.
+  - id: b
+    text: Yes; users must remain blocked until every hypothesis is resolved.
+    explanation: That can prolong harm unnecessarily.
+  - id: c
+    text: No; all evidence should be deleted immediately.
+    explanation: Evidence supports diagnosis and follow-up.
+  correct_option: a
+  explanation: Cause investigation and mitigation have different immediate goals.
+- id: ats079-domain-review-q06
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Reason about recovery evidence and follow-up improvements.
+  source_readings:
+  - sections/section-020/module-01/course-01-incident-roles-evidence-and-platform-recovery.md
+  prompt: A platform control service fails while existing workloads keep serving. What should communication
+    distinguish?
+  options:
+  - id: a
+    text: That every application is necessarily down.
+    explanation: That overstates observed impact.
+  - id: b
+    text: That no incident exists because some workloads run.
+    explanation: Users may still be unable to deploy or provision.
+  - id: c
+    text: Unavailable management actions from continuing runtime service.
+    explanation: Control and runtime availability differ.
+  correct_option: c
+  explanation: Control and runtime availability differ.
+- id: ats079-domain-review-q07
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Distinguish continuous integration, continuous delivery and continuous deployment.
+  source_readings:
+  - sections/section-030/module-01/course-01-build-artifacts-notifications-and-observable-delivery-contracts.md
+  prompt: What distinguishes continuous delivery from continuous deployment?
+  options:
+  - id: a
+    text: Deployment means only compiling TypeScript.
+    explanation: Compilation is earlier CI work.
+  - id: b
+    text: Delivery can retain an explicit release decision; deployment automates it after conditions are
+      met.
+    explanation: The production decision is a separate contract.
+  - id: c
+    text: Delivery never creates releasable artifacts.
+    explanation: A releasable path is central.
+  correct_option: b
+  explanation: The production decision is a separate contract.
+- id: ats079-domain-review-q08
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Connect CI, state stores and reconciliation without sharing unnecessary authority.
+  source_readings:
+  - sections/section-030/module-01/course-01-build-artifacts-notifications-and-observable-delivery-contracts.md
+  prompt: Which CI role fits a separated GitOps delivery path?
+  options:
+  - id: a
+    text: Build a known artifact and propose its desired-state reference.
+    explanation: The agent can own target application.
+  - id: b
+    text: Apply arbitrary target changes while leaving authoritative state inconsistent.
+    explanation: That breaks the intended control relationship.
+  - id: c
+    text: Store target administrator tokens in browser notifications.
+    explanation: That exposes authority.
+  correct_option: a
+  explanation: The agent can own target application.
+- id: ats079-domain-review-q09
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Explain notification and observability roles in feedback.
+  source_readings:
+  - sections/section-030/module-01/course-01-build-artifacts-notifications-and-observable-delivery-contracts.md
+  prompt: What does a delivered notification prove by itself?
+  options:
+  - id: a
+    text: Every workload became healthy.
+    explanation: Channel delivery is not runtime health.
+  - id: b
+    text: Every source dependency is immutable.
+    explanation: That is a separate input contract.
+  - id: c
+    text: That the notification channel delivered its message.
+    explanation: The described operation may have failed.
+  correct_option: c
+  explanation: The described operation may have failed.
+- id: ats079-domain-review-q10
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Identify runtime, agent and policy components of a GitOps-managed system.
+  source_readings:
+  - sections/section-040/module-01/course-01-managed-runtimes-agents-and-policy-boundaries.md
+  prompt: Which elements belong to the managed-system model?
+  options:
+  - id: a
+    text: Only a browser screenshot.
+    explanation: It does not identify control components.
+  - id: b
+    text: Runtimes, management agents and governing policies.
+    explanation: A repository alone is not the complete system.
+  - id: c
+    text: Only a Git branch name.
+    explanation: That identifies one input path.
+  correct_option: b
+  explanation: A repository alone is not the complete system.
+- id: ats079-domain-review-q11
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Explain management scope and bootstrap dependencies.
+  source_readings:
+  - sections/section-040/module-01/course-01-managed-runtimes-agents-and-policy-boundaries.md
+  prompt: Why does bootstrap need explicit treatment?
+  options:
+  - id: a
+    text: The initial trusted agent and source access must exist before ongoing management.
+    explanation: A controller cannot assume its own initial installation.
+  - id: b
+    text: Git text files automatically create all agents without a consumer.
+    explanation: An implementation is required.
+  - id: c
+    text: Bootstrap removes all later permission checks.
+    explanation: Ongoing authority still matters.
+  correct_option: a
+  explanation: A controller cannot assume its own initial installation.
+- id: ats079-domain-review-q12
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Reason about identity, ownership and external systems.
+  source_readings:
+  - sections/section-040/module-01/course-01-managed-runtimes-agents-and-policy-boundaries.md
+  prompt: Should a source-reading credential automatically have target administrator authority?
+  options:
+  - id: a
+    text: Yes; every repository reader must control every cluster.
+    explanation: That grants unrelated authority.
+  - id: b
+    text: Yes; a branch name proves administrative identity.
+    explanation: A name is not an access credential.
+  - id: c
+    text: No; source and target roles should be scoped separately.
+    explanation: They cross different access boundaries.
+  correct_option: c
+  explanation: They cross different access boundaries.
+- id: ats079-domain-review-q13
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Read an Application's source, destination and project relationships.
+  source_readings:
+  - sections/section-050/module-01/course-01-application-source-destination-and-project-boundaries.md
+  prompt: What does an Application chiefly connect?
+  options:
+  - id: a
+    text: Every cluster's storage device automatically.
+    explanation: Storage attachment is separate.
+  - id: b
+    text: A desired source with a destination and delivery policy.
+    explanation: It is the reconciliation unit.
+  - id: c
+    text: Only a dashboard panel with no resources.
+    explanation: The Application governs delivery state.
+  correct_option: b
+  explanation: It is the reconciliation unit.
+- id: ats079-domain-review-q14
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Explain revision, path, namespace and cluster identity.
+  source_readings:
+  - sections/section-050/module-01/course-01-application-source-destination-and-project-boundaries.md
+  prompt: Why review both source revision and path?
+  options:
+  - id: a
+    text: They jointly identify the input to manifest generation.
+    explanation: A repository alone does not select exact content.
+  - id: b
+    text: The path encrypts the Git history.
+    explanation: It is source selection.
+  - id: c
+    text: Every revision always contains the same files.
+    explanation: Repository content changes.
+  correct_option: a
+  explanation: A repository alone does not select exact content.
+- id: ats079-domain-review-q15
+  type: single_choice
+  difficulty: intermediate
+  learning_objective: Distinguish AppProject restrictions from destination RBAC.
+  source_readings:
+  - sections/section-050/module-01/course-01-application-source-destination-and-project-boundaries.md
+  prompt: Does an AppProject allowlist replace destination Kubernetes RBAC?
+  options:
+  - id: a
+    text: Yes; any project member can bypass the API authorizer.
+    explanation: The destination still enforces permissions.
+  - id: b
+    text: Yes; namespace spelling grants every verb.
+    explanation: Names do not establish authority.
+  - id: c
+    text: No; both boundaries matter.
+    explanation: Project policy and API authority constrain different stages.
+  correct_option: c
+  explanation: Project policy and API authority constrain different stages.

@@ -1,0 +1,122 @@
+version: 1
+approval: CNPA requested 2026-10-11; established reading-only scope
+course:
+  id: ATS079
+  certification:
+    name: Certified Cloud Native Platform Engineering Associate
+    code: CNPA
+    provider: CNCF / Linux Foundation
+    domain: Continuous Delivery & Platform Engineering
+    weight: 16
+    competencies:
+    - Continuous Integration Pipelines Overview
+    - Incident Response in Platform Engineering
+    - CI/CD Relationship Fundamentals
+    - GitOps Basics and Workflows
+    - GitOps for Application Environments
+defaults:
+  playground: false
+  module_lab: false
+  capstone: false
+  section_quiz: false
+  final_quiz: true
+assessment_format: YAML question banks v1, registered in assessments/index.yaml
+sections:
+- id: section-010
+  title: Continuous Integration Pipelines Overview
+  curriculum_item: Continuous Integration Pipelines Overview
+  capstone: false
+  section_quiz: false
+  modules:
+  - id: module-01
+    title: DAG Dependencies, Conditional Tasks And Parallel Work
+    objectives:
+    - Explain acyclic task dependencies and eligible parallelism.
+    - Distinguish data references from explicit scheduling dependencies.
+    - Interpret dependency results and fail-fast behavior.
+    - Evaluate outputs, retries and concurrency limits.
+    outline:
+    - DAG Dependencies, Conditional Tasks And Parallel Work
+    playground: false
+    module_lab: false
+    sources:
+    - reading: sections/section-010/module-01/course-01-dag-dependencies-conditional-tasks-and-parallel-work.md
+      adapted_from: ATS060/sections/section-050/module-01/course-01-dag-dependencies-conditional-tasks-and-parallel-work.md
+- id: section-020
+  title: Incident Response in Platform Engineering
+  curriculum_item: Incident Response in Platform Engineering
+  capstone: false
+  section_quiz: false
+  modules:
+  - id: module-01
+    title: Incident Roles, Evidence And Platform Recovery
+    objectives:
+    - Distinguish platform incidents from application-specific failures.
+    - Explain incident coordination, mitigation and communication.
+    - Reason about recovery evidence and follow-up improvements.
+    outline:
+    - Incident Roles, Evidence And Platform Recovery
+    playground: false
+    module_lab: false
+    sources:
+    - reading: sections/section-020/module-01/course-01-incident-roles-evidence-and-platform-recovery.md
+      adapted_from: null
+- id: section-030
+  title: CI/CD Relationship Fundamentals
+  curriculum_item: CI/CD Relationship Fundamentals
+  capstone: false
+  section_quiz: false
+  modules:
+  - id: module-01
+    title: Build Artifacts, Notifications And Observable Delivery Contracts
+    objectives:
+    - Connect CI, state stores and reconciliation without sharing unnecessary authority.
+    - Explain notification and observability roles in feedback.
+    - Reason about provenance, retries and ambiguous success signals.
+    - Distinguish continuous integration, continuous delivery and continuous deployment.
+    outline:
+    - Build Artifacts, Notifications And Observable Delivery Contracts
+    playground: false
+    module_lab: false
+    sources:
+    - reading: sections/section-030/module-01/course-01-build-artifacts-notifications-and-observable-delivery-contracts.md
+      adapted_from: ATS068/sections/section-040/module-01/course-01-build-artifacts-notifications-and-observable-delivery-contracts.md
+- id: section-040
+  title: GitOps Basics and Workflows
+  curriculum_item: GitOps Basics and Workflows
+  capstone: false
+  section_quiz: false
+  modules:
+  - id: module-01
+    title: Managed Runtimes, Agents And Policy Boundaries
+    objectives:
+    - Identify runtime, agent and policy components of a GitOps-managed system.
+    - Explain management scope and bootstrap dependencies.
+    - Reason about identity, ownership and external systems.
+    outline:
+    - Managed Runtimes, Agents And Policy Boundaries
+    playground: false
+    module_lab: false
+    sources:
+    - reading: sections/section-040/module-01/course-01-managed-runtimes-agents-and-policy-boundaries.md
+      adapted_from: ATS064/sections/section-060/module-01/course-01-managed-runtimes-agents-and-policy-boundaries.md
+- id: section-050
+  title: GitOps for Application Environments
+  curriculum_item: GitOps for Application Environments
+  capstone: false
+  section_quiz: false
+  modules:
+  - id: module-01
+    title: Application Source, Destination And Project Boundaries
+    objectives:
+    - Read an Application's source, destination and project relationships.
+    - Explain revision, path, namespace and cluster identity.
+    - Distinguish AppProject restrictions from destination RBAC.
+    - Evaluate tracking, status and deletion lifecycle.
+    outline:
+    - Application Source, Destination And Project Boundaries
+    playground: false
+    module_lab: false
+    sources:
+    - reading: sections/section-050/module-01/course-01-application-source-destination-and-project-boundaries.md
+      adapted_from: ATS061/sections/section-030/module-01/course-01-application-source-destination-and-project-boundaries.md
