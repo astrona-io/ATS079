@@ -1,0 +1,72 @@
+# yaml-language-server: $schema=https://cli.astrona.io/schema/lab-config.schema.json
+#
+# CI Pipelines Capstone (LAB). Graded against the live cluster. Built untested.
+apiVersion: astrona.io/v1
+metadata:
+  name: ats-079-lab-010-capstone
+  docs:
+    prerequisites: prerequisites.md
+    question: question.md
+    solution: solution.md
+
+runtime:
+  type: kind
+  kind:
+    image: kindest/node:v1.35.8
+    preloadImages:
+      - curlimages/curl:8.22.0
+      - alpine:3.23
+      - quay.io/argoproj/workflow-controller:v4.1.6
+      - quay.io/argoproj/argoexec:v4.1.6
+
+bootstrap:
+  manifests:
+    - name: lab-start
+      type: file
+      source: manifests/lab-start.yaml
+  init:
+    - name: install-argo-workflows
+      description: "Installs Argo Workflows v4.1.6 into starfleet (namespaced, without the Argo server)"
+      type: file
+      source: bootstrap/01-install-argo-workflows.sh
+  waitFor:
+    - resource: deploy/shuttle
+      namespace: starfleet
+
+testing:
+  init:
+    - name: solution
+      description: Reference solution applied by `astrona test`
+      type: file
+      source: solution/apply.sh
+
+validation:
+  scripts:
+    - name: template-structure
+      description: "release-pipeline has the DAG, output reference, retry, parallelism limit and condition"
+      type: file
+      source: validation/validate-template-structure.sh
+      hint: "Set spec.parallelism to 2, give integration-step a retryStrategy with limit 2, and pass tasks.version.outputs.parameters.version to package."
+    - name: runs-finished
+      description: "release-1 (publish true) and release-2 (publish false) both Succeeded"
+      type: file
+      source: validation/validate-runs-finished.sh
+      hint: "Create two Workflows with workflowTemplateRef release-pipeline and set the parameter publish in release-1."
+    - name: retry-and-data
+      description: "integration failed once and then succeeded, package got 1.4.2 and publish ran in release-1"
+      type: file
+      source: validation/validate-retry-and-data.sh
+      hint: "Use test {{retries}} -ge 1 as the command and add version to the depends of package."
+    - name: skipped-publish
+      description: "publish was skipped in release-2"
+      type: file
+      source: validation/validate-skipped-publish.sh
+      hint: "The when expression must compare the parameter publish with true."
+    - name: concurrency-limit
+      description: "At most two task pods ran at the same moment in release-1"
+      type: file
+      source: validation/validate-concurrency-limit.sh
+      hint: "spec.parallelism: 2 in the template limits the pods that run at once."
+
+teardown:
+  keepCluster: false

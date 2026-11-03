@@ -1,0 +1,91 @@
+# yaml-language-server: $schema=https://cli.astrona.io/schema/lab-config.schema.json
+#
+# Environment Generation Capstone (LAB). Generate three environments, promote two and retire one. Graded against Git and the live cluster. Built untested.
+apiVersion: astrona.io/v1
+metadata:
+  name: ats-079-lab-050-capstone
+  docs:
+    prerequisites: prerequisites.md
+    question: question.md
+    solution: solution.md
+
+runtime:
+  type: kind
+  kind:
+    image: kindest/node:v1.35.8
+    preloadImages:
+      - curlimages/curl:8.22.0
+      - ghcr.io/stefanprodan/podinfo:6.15.0
+      - ghcr.io/stefanprodan/podinfo:6.14.0
+      - gitea/gitea:28.1.0-rootless
+      - quay.io/argoproj/argocd:v3.5.4
+      - public.ecr.aws/docker/library/redis:8.2.3-alpine
+  portForwards:
+    - name: argocd
+      description: "Argo CD API server and web page"
+      namespace: argocd
+      resource: svc/argocd-server
+      targetPort: 443
+      hostPort: 8080
+      scheme: https
+    - name: gitea
+      description: "The Git server (git over HTTP)"
+      namespace: gitea
+      resource: svc/gitea-http
+      targetPort: 3000
+      hostPort: 3000
+      scheme: http
+
+bootstrap:
+  manifests:
+    - name: lab-start
+      type: file
+      source: manifests/lab-start.yaml
+  init:
+    - name: install-gitea
+      description: "Starts the in-cluster Git server"
+      type: file
+      source: bootstrap/01-install-gitea.sh
+    - name: install-argocd
+      description: "Installs Argo CD 3.5.4 (non-HA, without Dex and notifications)"
+      type: file
+      source: bootstrap/02-install-argocd.sh
+    - name: seed
+      description: "Pushes the scout-deploy repository into Git and prepares the starting state"
+      type: file
+      source: bootstrap/03-seed.sh
+    - name: configure-argocd
+      description: "Gives Argo CD the repository credentials and creates the project scout-team"
+      type: file
+      source: bootstrap/04-configure-argocd.sh
+  waitFor:
+    - resource: deploy/shuttle
+      namespace: starfleet
+
+testing:
+  init:
+    - name: solution
+      description: Reference solution applied by `astrona test`
+      type: file
+      source: solution/apply.sh
+
+validation:
+  scripts:
+    - name: applicationset-shape
+      description: "scout-envs is a templated list of staging and production with the finalizer, prune and selfHeal, and owns both Applications"
+      type: file
+      source: validation/validate-applicationset-shape.sh
+      hint: "Use goTemplate, put placeholders in the name, path and namespace, and keep the finalizer in template.metadata. Create the Applications only through the ApplicationSet."
+    - name: promoted
+      description: "Both overlays name 6.15.0 in two commits, staging first, and both Applications are delivered at the head commit"
+      type: file
+      source: validation/validate-promoted.sh
+      hint: "Change one overlay per commit. Refresh both Applications after the production commit so that each compares the head commit."
+    - name: preview-retired
+      description: "The preview element is gone, scout-preview and its objects are deleted and the namespace remains"
+      type: file
+      source: validation/validate-preview-retired.sh
+      hint: "Remove the element from the list generator and apply the ApplicationSet. Do not delete the Application by hand."
+
+teardown:
+  keepCluster: false

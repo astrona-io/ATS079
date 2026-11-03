@@ -5,20 +5,24 @@ exam_objectives:
 ---
 # DAG Dependencies, Conditional Tasks And Parallel Work
 
-This module develops dAG Dependencies, Conditional Tasks And Parallel Work. Use the explanations to connect intended behavior with responsible components and observable evidence.
+This module explains how a continuous integration (CI) pipeline decides which task runs when. A CI pipeline builds and checks every change to the source code, and it produces an artifact that a later stage can deliver. The module uses Argo Workflows, a Kubernetes workflow engine, because its Directed Acyclic Graph (DAG) template shows the ordering rules in plain YAML.
 
 ## Learning Goals
 
-- Explain acyclic task dependencies and eligible parallelism.
-- Distinguish data references from explicit scheduling dependencies.
-- Interpret dependency results and fail-fast behavior.
-- Evaluate outputs, retries and concurrency limits.
+- Explain acyclic task dependencies and which tasks the controller may run in parallel.
+- Distinguish a data reference from a scheduling dependency, and write a `depends` expression with task results.
+- Interpret task phases, conditional tasks, fail-fast behavior and retries.
+- Limit concurrency with parallelism settings and read the timing of each task from the workflow status.
 
 ## Before You Start
 
-Examples illustrate declared relationships and reasoning. No execution environment is required or claimed.
+You should know what a pod and a namespace are. The hands-on part uses a playground with a kind cluster, Argo Workflows and `kubectl`. Technical terms are defined where they first appear.
 
 ## Reading Order
 
 1. DAG Dependencies, Conditional Tasks And Parallel Work
-2. Summary
+2. Conditional Tasks, Failure And Retries
+3. Data, Outputs And Parallelism Limits
+4. Summary
+
+<!-- astrona:playground -->

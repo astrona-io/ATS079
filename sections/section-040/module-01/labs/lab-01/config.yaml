@@ -1,0 +1,95 @@
+# yaml-language-server: $schema=https://cli.astrona.io/schema/lab-config.schema.json
+#
+# Revert A Bad Release And Make Argo CD Enforce Git (LAB). Graded against Git and the live cluster. Built untested.
+apiVersion: astrona.io/v1
+metadata:
+  name: ats-079-lab-040-01
+  docs:
+    prerequisites: prerequisites.md
+    question: question.md
+    solution: solution.md
+
+runtime:
+  type: kind
+  kind:
+    image: kindest/node:v1.35.8
+    preloadImages:
+      - curlimages/curl:8.22.0
+      - ghcr.io/stefanprodan/podinfo:6.15.0
+      - ghcr.io/stefanprodan/podinfo:6.14.0
+      - gitea/gitea:28.1.0-rootless
+      - quay.io/argoproj/argocd:v3.5.4
+      - public.ecr.aws/docker/library/redis:8.2.3-alpine
+  portForwards:
+    - name: argocd
+      description: "Argo CD API server and web page"
+      namespace: argocd
+      resource: svc/argocd-server
+      targetPort: 443
+      hostPort: 8080
+      scheme: https
+    - name: gitea
+      description: "The Git server (git over HTTP)"
+      namespace: gitea
+      resource: svc/gitea-http
+      targetPort: 3000
+      hostPort: 3000
+      scheme: http
+
+bootstrap:
+  manifests:
+    - name: lab-start
+      type: file
+      source: manifests/lab-start.yaml
+  init:
+    - name: install-gitea
+      description: "Starts the in-cluster Git server"
+      type: file
+      source: bootstrap/01-install-gitea.sh
+    - name: install-argocd
+      description: "Installs Argo CD 3.5.4 (non-HA, without Dex and notifications)"
+      type: file
+      source: bootstrap/02-install-argocd.sh
+    - name: seed
+      description: "Pushes the scout-deploy repository into Git and prepares the starting state"
+      type: file
+      source: bootstrap/03-seed.sh
+    - name: configure-argocd
+      description: "Gives Argo CD the repository credentials and creates the starting Application"
+      type: file
+      source: bootstrap/04-configure-argocd.sh
+    - name: bad-release
+      description: "Pushes a commit that sets the staging tag to 6.15.99 and asks Argo CD to refresh"
+      type: file
+      source: bootstrap/05-bad-release.sh
+  waitFor:
+    - resource: deploy/shuttle
+      namespace: starfleet
+
+testing:
+  init:
+    - name: solution
+      description: Reference solution applied by `astrona test`
+      type: file
+      source: solution/apply.sh
+
+validation:
+  scripts:
+    - name: reverted-in-git
+      description: "The head commit is a revert, the bad commit is still in the history and staging names 6.14.0"
+      type: file
+      source: validation/validate-reverted-in-git.sh
+      hint: "Use git revert on the bad commit and push. Do not rewrite the history."
+    - name: delivered
+      description: "scout-staging is Synced and Healthy at the head commit and runs 6.14.0"
+      type: file
+      source: validation/validate-delivered.sh
+      hint: "Ask Argo CD to refresh with the annotation argocd.argoproj.io/refresh=hard and wait for the rollout."
+    - name: enforces-git
+      description: "The Application has automated prune and selfHeal, and a hand edit of the replicas is undone"
+      type: file
+      source: validation/validate-enforces-git.sh
+      hint: "Patch spec.syncPolicy.automated of scout-staging with prune and selfHeal set to true."
+
+teardown:
+  keepCluster: false

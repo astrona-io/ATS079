@@ -2,18 +2,18 @@
 
 Certified Cloud Native Platform Engineering Associate (CNPA): Continuous Delivery & Platform Engineering, worth 16% of the official curriculum. This course belongs to ATP016.
 
-Developed reading explains mechanisms, responsible components, examples and limits. Every section has an introduction and every module closes with a summary. Reusable YAML checks contain 5–15 questions per bank. Technical content remains draft. No labs or playgrounds are included.
+Developed reading explains mechanisms, responsible components, examples and limits. Every module has a playground and a graded lab, every section has a capstone lab and a quiz, and a final domain quiz closes the course. Labs run on kind (Kubernetes 1.35). Technical content remains draft and the labs are built untested.
 
 ## Course Outline
 
-| Section / module | Module | Teaching files |
+| Section / module | Module | Teaching lessons |
 | --- | --- | --- |
-| 010 / 01 | DAG Dependencies, Conditional Tasks And Parallel Work | DAG Dependencies, Conditional Tasks And Parallel Work |
-| 020 / 01 | Incident Roles, Evidence And Platform Recovery | Incident Roles, Evidence And Platform Recovery |
-| 030 / 01 | Build Artifacts, Notifications And Observable Delivery Contracts | Build Artifacts, Notifications And Observable Delivery Contracts |
-| 040 / 01 | Managed Runtimes, Agents And Policy Boundaries | Managed Runtimes, Agents And Policy Boundaries |
-| 050 / 01 | Application Source, Destination And Project Boundaries | Application Source, Destination And Project Boundaries |
+| 010 / 01 | DAG Dependencies, Conditional Tasks And Parallel Work | 3 |
+| 020 / 01 | Incident Roles, Evidence And Platform Recovery | 3 |
+| 030 / 01 | Build Artifacts, Notifications And Observable Delivery Contracts | 3 |
+| 040 / 01 | Managed Runtimes, Agents And Policy Boundaries | 3 |
+| 050 / 01 | Application Source, Destination And Project Boundaries | 3 |
 
 ## Author Review
 
-See [curriculum coverage](CURRICULUM.md), [primary sources](SOURCES.md), [question-bank documentation](ASSESSMENTS.md) and [contribution instructions](CONTRIBUTING.md). No runtime execution is claimed.
+See [curriculum coverage](CURRICULUM.md), [primary sources](SOURCES.md), [question-bank documentation](ASSESSMENTS.md) and [contribution instructions](CONTRIBUTING.md). Labs are untested: no runtime execution is claimed.

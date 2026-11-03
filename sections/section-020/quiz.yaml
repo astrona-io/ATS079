@@ -1,0 +1,265 @@
+# Knowledge check for section 020. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats079-020
+course_id: ATS079
+exam_code: CNPA
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: section
+  id: section-020
+  title: "Incident Response in Platform Engineering"
+questions:
+  - id: ats079-020-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Distinguish platform incidents from application-specific failures and explain coordination"
+    source_readings:
+      - sections/section-020/module-01/course-01-incident-roles-evidence-and-platform-recovery.md
+    prompt: "Who runs the commands that change production objects during an incident?"
+    options:
+      - id: a
+        text: "The incident commander"
+        explanation: "The commander decides what happens next and keeps the overall picture."
+      - id: b
+        text: "The operations lead"
+        explanation: "Correct. One person changes the system so that changes are ordered and each one has an owner."
+      - id: c
+        text: "The communications lead"
+        explanation: "This role informs affected teams and users."
+      - id: d
+        text: "The scribe"
+        explanation: "The scribe writes the timeline and does not change the system."
+    correct_option: b
+    explanation: "Changes are made by the operations lead only."
+
+  - id: ats079-020-q02
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Distinguish platform incidents from application-specific failures and explain coordination"
+    source_readings:
+      - sections/section-020/module-01/course-01-incident-roles-evidence-and-platform-recovery.md
+    prompt: "On what is the severity of an incident chosen?"
+    options:
+      - id: a
+        text: "The suspected root cause"
+        explanation: "The cause is usually unknown when the level is chosen."
+      - id: b
+        text: "The impact on users and teams"
+        explanation: "Correct. Severity follows impact, and it can change during the incident."
+      - id: c
+        text: "The team that owns the service"
+        explanation: "Ownership does not define how serious an incident is."
+      - id: d
+        text: "The time of day"
+        explanation: "The time does not define the level."
+    correct_option: b
+    explanation: "Severity describes impact, not cause."
+
+  - id: ats079-020-q03
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Reason about mitigation and recovery evidence"
+    source_readings:
+      - sections/section-020/module-01/course-01-incident-roles-evidence-and-platform-recovery.md
+    prompt: "Why does the work of an incident put mitigation before root cause analysis?"
+    options:
+      - id: a
+        text: "Root causes are never found during an incident."
+        explanation: "They sometimes are. The reason is impact."
+      - id: b
+        text: "Each minute of analysis is also a minute of impact on users."
+        explanation: "Correct. The goal is to restore the agreed service level first."
+      - id: c
+        text: "Kubernetes forbids analysis while a rollout runs."
+        explanation: "No such rule exists."
+      - id: d
+        text: "A mitigation always removes the cause."
+        explanation: "A mitigation reduces impact and can leave the cause in place."
+    correct_option: b
+    explanation: "Mitigation restores service. Resolution and learning follow."
+
+  - id: ats079-020-q04
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Reason about mitigation and recovery evidence"
+    source_readings:
+      - sections/section-020/module-01/course-01-incident-roles-evidence-and-platform-recovery.md
+    prompt: "Events are the only evidence of why a pod never started. How long does the API server keep an event by default?"
+    options:
+      - id: a
+        text: "About one hour"
+        explanation: "Correct. Events have a time to live, so important ones must be copied into the record."
+      - id: b
+        text: "Seven days"
+        explanation: "Events are not kept that long."
+      - id: c
+        text: "Until the pod is deleted"
+        explanation: "Events are separate objects with their own time to live."
+      - id: d
+        text: "Forever"
+        explanation: "They expire."
+    correct_option: a
+    explanation: "Copy the events into the incident record while they exist."
+
+  - id: ats079-020-q05
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Reason about mitigation and recovery evidence"
+    source_readings:
+      - sections/section-020/module-01/course-02-mitigation-first-rolling-back-a-bad-release.md
+    prompt: "A Deployment with two replicas and the default rolling update gets a new image that cannot be pulled. What happens to the old pods?"
+    options:
+      - id: a
+        text: "They are removed at once."
+        explanation: "maxUnavailable rounds down to 0 for two replicas, so they stay."
+      - id: b
+        text: "They keep running, because an old pod is removed only after a new pod is ready."
+        explanation: "Correct. The Service keeps its two ready endpoints during the stalled rollout."
+      - id: c
+        text: "They are restarted with the new image."
+        explanation: "The pod template of an old pod does not change."
+      - id: d
+        text: "They are scaled to one."
+        explanation: "The default strategy does not do that."
+    correct_option: b
+    explanation: "The default strategy with two replicas keeps both old pods until the new pod is ready."
+
+  - id: ats079-020-q06
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Reason about mitigation and recovery evidence"
+    source_readings:
+      - sections/section-020/module-01/course-02-mitigation-first-rolling-back-a-bad-release.md
+    prompt: "What does Kubernetes do when a rollout exceeds progressDeadlineSeconds?"
+    options:
+      - id: a
+        text: "It rolls back to the previous revision."
+        explanation: "Kubernetes does not roll back by itself."
+      - id: b
+        text: "It sets Progressing to False with the reason ProgressDeadlineExceeded and takes no further action."
+        explanation: "Correct. The decision to go back belongs to the responders or to a delivery tool."
+      - id: c
+        text: "It deletes the Deployment."
+        explanation: "Nothing is deleted."
+      - id: d
+        text: "It scales the Deployment to zero."
+        explanation: "The replica count is unchanged."
+    correct_option: b
+    explanation: "The controller reports the condition and stops there."
+
+  - id: ats079-020-q07
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Reason about mitigation and recovery evidence"
+    source_readings:
+      - sections/section-020/module-01/course-02-mitigation-first-rolling-back-a-bad-release.md
+    prompt: "What does `kubectl rollout undo` change?"
+    options:
+      - id: a
+        text: "The pod template of the Deployment, written back from the previous revision"
+        explanation: "Correct. It creates a new revision and the controller moves the replicas as in any update."
+      - id: b
+        text: "Every object that the release modified"
+        explanation: "It restores only the Deployment pod template."
+      - id: c
+        text: "The data of the application"
+        explanation: "Data is not part of a Deployment."
+      - id: d
+        text: "The history, which it clears"
+        explanation: "The old ReplicaSets are kept as history."
+    correct_option: a
+    explanation: "A rollback is a normal update of the pod template."
+
+  - id: ats079-020-q08
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Classify pod failures from their status"
+    source_readings:
+      - sections/section-020/module-01/course-03-configuration-faults-crash-loops-and-readiness.md
+    prompt: "A pod is in CreateContainerConfigError. Which statement is correct?"
+    options:
+      - id: a
+        text: "The image could not be pulled."
+        explanation: "That gives ErrImagePull or ImagePullBackOff."
+      - id: b
+        text: "A referenced ConfigMap or Secret key is missing, and the container has no logs."
+        explanation: "Correct. The container was never created, so the events are the evidence."
+      - id: c
+        text: "The process exits with an error."
+        explanation: "That gives CrashLoopBackOff."
+      - id: d
+        text: "The readiness probe fails."
+        explanation: "That leaves the pod Running but not ready."
+    correct_option: b
+    explanation: "The event names the missing key, and the fix is in the ConfigMap or Secret."
+
+  - id: ats079-020-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Classify pod failures from their status"
+    source_readings:
+      - sections/section-020/module-01/course-03-configuration-faults-crash-loops-and-readiness.md
+    prompt: "A pod is Running with 0/1 ready, and its logs look healthy. What is the most likely class of fault?"
+    options:
+      - id: a
+        text: "An image pull failure"
+        explanation: "The container is running, so the image was pulled."
+      - id: b
+        text: "A failing or misconfigured readiness probe"
+        explanation: "Correct. The process works, and the check fails, for example on the wrong port."
+      - id: c
+        text: "A scheduling failure"
+        explanation: "The pod is on a node."
+      - id: d
+        text: "A missing ConfigMap key"
+        explanation: "That stops the container from being created."
+    correct_option: b
+    explanation: "A running but not ready pod points at the readiness probe."
+
+  - id: ats079-020-q10
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Classify pod failures from their status"
+    source_readings:
+      - sections/section-020/module-01/course-03-configuration-faults-crash-loops-and-readiness.md
+    prompt: "All pods of a Service are Running, and every readiness probe fails. What do requests to the Service see?"
+    options:
+      - id: a
+        text: "They are sent to the pods anyway."
+        explanation: "Services send traffic only to ready endpoints."
+      - id: b
+        text: "They are refused, because the Service has no ready endpoints."
+        explanation: "Correct. The EndpointSlices list the pods with ready false."
+      - id: c
+        text: "They are queued until a pod is ready."
+        explanation: "Kubernetes does not queue requests."
+      - id: d
+        text: "They are sent to a pod chosen at random."
+        explanation: "Not-ready pods are excluded."
+    correct_option: b
+    explanation: "No ready endpoint means no capacity, although every container runs."
+
+  - id: ats079-020-q11
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Classify pod failures from their status"
+    source_readings:
+      - sections/section-020/module-01/course-03-configuration-faults-crash-loops-and-readiness.md
+    prompt: "A container is in CrashLoopBackOff. Which command shows what its last attempt printed?"
+    options:
+      - id: a
+        text: "kubectl logs --previous"
+        explanation: "Correct. The previous container instance logged before it exited."
+      - id: b
+        text: "kubectl get events --previous"
+        explanation: "There is no such option for events."
+      - id: c
+        text: "kubectl rollout history"
+        explanation: "This lists revisions and not logs."
+      - id: d
+        text: "kubectl describe node"
+        explanation: "This describes the node and not the container output."
+    correct_option: a
+    explanation: "The logs of the previous instance show the cause of a crash."

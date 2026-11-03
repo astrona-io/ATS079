@@ -1,5 +1,6 @@
 version: 1
-approval: CNPA requested 2026-10-11; established reading-only scope
+approval: CNPA requested 2026-10-11; reading-only rule lifted by the maintainer
+  2026-11-03 (labs, playgrounds, capstones and quizzes added)
 course:
   id: ATS079
   certification:
@@ -15,18 +16,18 @@ course:
     - GitOps Basics and Workflows
     - GitOps for Application Environments
 defaults:
-  playground: false
-  module_lab: false
-  capstone: false
-  section_quiz: false
+  playground: true
+  module_lab: true
+  capstone: true
+  section_quiz: true
   final_quiz: true
 assessment_format: YAML question banks v1, registered in assessments/index.yaml
 sections:
 - id: section-010
   title: Continuous Integration Pipelines Overview
   curriculum_item: Continuous Integration Pipelines Overview
-  capstone: false
-  section_quiz: false
+  capstone: true
+  section_quiz: true
   modules:
   - id: module-01
     title: DAG Dependencies, Conditional Tasks And Parallel Work
@@ -37,16 +38,20 @@ sections:
     - Evaluate outputs, retries and concurrency limits.
     outline:
     - DAG Dependencies, Conditional Tasks And Parallel Work
-    playground: false
-    module_lab: false
+    playground: true
+    module_lab: true
     sources:
     - reading: sections/section-010/module-01/course-01-dag-dependencies-conditional-tasks-and-parallel-work.md
-      adapted_from: ATS060/sections/section-050/module-01/course-01-dag-dependencies-conditional-tasks-and-parallel-work.md
+      adapted_from: null
+    - reading: sections/section-010/module-01/course-02-conditional-tasks-failure-and-retries.md
+      adapted_from: null
+    - reading: sections/section-010/module-01/course-03-data-outputs-and-parallelism-limits.md
+      adapted_from: null
 - id: section-020
   title: Incident Response in Platform Engineering
   curriculum_item: Incident Response in Platform Engineering
-  capstone: false
-  section_quiz: false
+  capstone: true
+  section_quiz: true
   modules:
   - id: module-01
     title: Incident Roles, Evidence And Platform Recovery
@@ -56,16 +61,20 @@ sections:
     - Reason about recovery evidence and follow-up improvements.
     outline:
     - Incident Roles, Evidence And Platform Recovery
-    playground: false
-    module_lab: false
+    playground: true
+    module_lab: true
     sources:
     - reading: sections/section-020/module-01/course-01-incident-roles-evidence-and-platform-recovery.md
+      adapted_from: null
+    - reading: sections/section-020/module-01/course-02-mitigation-first-rolling-back-a-bad-release.md
+      adapted_from: null
+    - reading: sections/section-020/module-01/course-03-configuration-faults-crash-loops-and-readiness.md
       adapted_from: null
 - id: section-030
   title: CI/CD Relationship Fundamentals
   curriculum_item: CI/CD Relationship Fundamentals
-  capstone: false
-  section_quiz: false
+  capstone: true
+  section_quiz: true
   modules:
   - id: module-01
     title: Build Artifacts, Notifications And Observable Delivery Contracts
@@ -76,16 +85,20 @@ sections:
     - Distinguish continuous integration, continuous delivery and continuous deployment.
     outline:
     - Build Artifacts, Notifications And Observable Delivery Contracts
-    playground: false
-    module_lab: false
+    playground: true
+    module_lab: true
     sources:
-    - reading: sections/section-030/module-01/course-01-build-artifacts-notifications-and-observable-delivery-contracts.md
-      adapted_from: ATS068/sections/section-040/module-01/course-01-build-artifacts-notifications-and-observable-delivery-contracts.md
+    - reading: sections/section-030/module-01/course-01-ci-continuous-delivery-and-continuous-deployment.md
+      adapted_from: null
+    - reading: sections/section-030/module-01/course-02-git-as-the-handoff-promotion-by-commit.md
+      adapted_from: null
+    - reading: sections/section-030/module-01/course-03-observing-delivery-status-revision-and-delivery-records.md
+      adapted_from: null
 - id: section-040
   title: GitOps Basics and Workflows
   curriculum_item: GitOps Basics and Workflows
-  capstone: false
-  section_quiz: false
+  capstone: true
+  section_quiz: true
   modules:
   - id: module-01
     title: Managed Runtimes, Agents And Policy Boundaries
@@ -95,16 +108,20 @@ sections:
     - Reason about identity, ownership and external systems.
     outline:
     - Managed Runtimes, Agents And Policy Boundaries
-    playground: false
-    module_lab: false
+    playground: true
+    module_lab: true
     sources:
-    - reading: sections/section-040/module-01/course-01-managed-runtimes-agents-and-policy-boundaries.md
-      adapted_from: ATS064/sections/section-060/module-01/course-01-managed-runtimes-agents-and-policy-boundaries.md
+    - reading: sections/section-040/module-01/course-01-gitops-principles-and-the-components-that-implement-them.md
+      adapted_from: null
+    - reading: sections/section-040/module-01/course-02-reconciliation-drift-self-heal-and-prune.md
+      adapted_from: null
+    - reading: sections/section-040/module-01/course-03-policy-boundaries-identity-ownership-and-rollback.md
+      adapted_from: null
 - id: section-050
   title: GitOps for Application Environments
   curriculum_item: GitOps for Application Environments
-  capstone: false
-  section_quiz: false
+  capstone: true
+  section_quiz: true
   modules:
   - id: module-01
     title: Application Source, Destination And Project Boundaries
@@ -115,8 +132,12 @@ sections:
     - Evaluate tracking, status and deletion lifecycle.
     outline:
     - Application Source, Destination And Project Boundaries
-    playground: false
-    module_lab: false
+    playground: true
+    module_lab: true
     sources:
-    - reading: sections/section-050/module-01/course-01-application-source-destination-and-project-boundaries.md
-      adapted_from: ATS061/sections/section-030/module-01/course-01-application-source-destination-and-project-boundaries.md
+    - reading: sections/section-050/module-01/course-01-application-source-and-destination.md
+      adapted_from: null
+    - reading: sections/section-050/module-01/course-02-environments-projects-and-the-deletion-lifecycle.md
+      adapted_from: null
+    - reading: sections/section-050/module-01/course-03-applicationsets-generating-environments.md
+      adapted_from: null

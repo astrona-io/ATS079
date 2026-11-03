@@ -1,0 +1,265 @@
+# Knowledge check for section 050. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats079-050
+course_id: ATS079
+exam_code: CNPA
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: section
+  id: section-050
+  title: "GitOps for Application Environments"
+questions:
+  - id: ats079-050-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Describe the source and destination of an Application"
+    source_readings:
+      - sections/section-050/module-01/course-01-application-source-and-destination.md
+    prompt: "Which three fields make up the source of an Application?"
+    options:
+      - id: a
+        text: "Repository URL, path and target revision"
+        explanation: "Correct."
+      - id: b
+        text: "Cluster, namespace and project"
+        explanation: "Those make up the destination and the policy."
+      - id: c
+        text: "Image, tag and replicas"
+        explanation: "Those are workload fields."
+      - id: d
+        text: "Branch, author and message"
+        explanation: "Those are commit fields."
+    correct_option: a
+    explanation: "The source says what to render and from which revision."
+
+  - id: ats079-050-q02
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Describe the source and destination of an Application"
+    source_readings:
+      - sections/section-050/module-01/course-01-application-source-and-destination.md
+    prompt: "An Application has `targetRevision` set to a commit SHA. A new commit is pushed to `main`. What happens?"
+    options:
+      - id: a
+        text: "The Application delivers the new commit"
+        explanation: "A SHA does not move."
+      - id: b
+        text: "The Application keeps comparing the pinned commit and ignores the new one"
+        explanation: "Correct. The pin has to be changed for a new version."
+      - id: c
+        text: "The Application is deleted"
+        explanation: "It is not."
+      - id: d
+        text: "The SHA is updated automatically"
+        explanation: "Argo CD never edits the Application for you."
+    correct_option: b
+    explanation: "A branch name follows the branch and a SHA is fixed."
+
+  - id: ats079-050-q03
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Describe the source and destination of an Application"
+    source_readings:
+      - sections/section-050/module-01/course-01-application-source-and-destination.md
+    prompt: "Which field proves which commit an Application compared?"
+    options:
+      - id: a
+        text: "`spec.source.targetRevision`"
+        explanation: "That is what was asked for, which may be a branch name."
+      - id: b
+        text: "`status.sync.revision`"
+        explanation: "Correct. It holds the compared commit."
+      - id: c
+        text: "`status.health.status`"
+        explanation: "That reports health."
+      - id: d
+        text: "`metadata.generation`"
+        explanation: "That counts edits of the object."
+    correct_option: b
+    explanation: "The status names the commit and the spec names the request."
+
+  - id: ats079-050-q04
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Explain projects, tracking and the deletion lifecycle"
+    source_readings:
+      - sections/section-050/module-01/course-02-environments-projects-and-the-deletion-lifecycle.md
+    prompt: "What does an AppProject limit?"
+    options:
+      - id: a
+        text: "The repositories an Application may read, the destinations it may write and the kinds it may create"
+        explanation: "Correct."
+      - id: b
+        text: "Only the number of replicas"
+        explanation: "A project does not set replicas."
+      - id: c
+        text: "Only the Git branch"
+        explanation: "The branch is in the source."
+      - id: d
+        text: "The container images"
+        explanation: "Images are not limited by a project."
+    correct_option: a
+    explanation: "The project is the policy object."
+
+  - id: ats079-050-q05
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Explain projects, tracking and the deletion lifecycle"
+    source_readings:
+      - sections/section-050/module-01/course-02-environments-projects-and-the-deletion-lifecycle.md
+    prompt: "An Application in a project targets a namespace that the project does not list. What is the result?"
+    options:
+      - id: a
+        text: "The objects are created and a warning is logged"
+        explanation: "Nothing is applied."
+      - id: b
+        text: "Nothing is applied and the Application shows an InvalidSpecError condition"
+        explanation: "Correct."
+      - id: c
+        text: "The namespace is added to the project"
+        explanation: "A project is never changed by an Application."
+      - id: d
+        text: "Argo CD deletes the project"
+        explanation: "It does not."
+    correct_option: b
+    explanation: "The check happens before the write."
+
+  - id: ats079-050-q06
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Explain projects, tracking and the deletion lifecycle"
+    source_readings:
+      - sections/section-050/module-01/course-02-environments-projects-and-the-deletion-lifecycle.md
+    prompt: "What does the annotation `argocd.argoproj.io/tracking-id` on a Deployment record?"
+    options:
+      - id: a
+        text: "The Application, the group, the kind, the namespace and the name that own the object"
+        explanation: "Correct."
+      - id: b
+        text: "The Git commit author"
+        explanation: "Git records the author."
+      - id: c
+        text: "The image digest"
+        explanation: "That is in the Pod status."
+      - id: d
+        text: "The last sync time"
+        explanation: "That is in the Application."
+    correct_option: a
+    explanation: "The controller finds what it owns through this annotation."
+
+  - id: ats079-050-q07
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Explain projects, tracking and the deletion lifecycle"
+    source_readings:
+      - sections/section-050/module-01/course-02-environments-projects-and-the-deletion-lifecycle.md
+    prompt: "An Application has no finalizer and is deleted. What happens to its Deployment?"
+    options:
+      - id: a
+        text: "It is deleted first"
+        explanation: "That needs the finalizer."
+      - id: b
+        text: "It keeps running with no owner"
+        explanation: "Correct. Only the Application is removed."
+      - id: c
+        text: "It is scaled to zero"
+        explanation: "Nothing scales it."
+      - id: d
+        text: "It is moved to the default project"
+        explanation: "Objects do not belong to projects."
+    correct_option: b
+    explanation: "The finalizer decides whether the deletion cascades."
+
+  - id: ats079-050-q08
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Explain projects, tracking and the deletion lifecycle"
+    source_readings:
+      - sections/section-050/module-01/course-02-environments-projects-and-the-deletion-lifecycle.md
+    prompt: "Why can a deleted preview Application with no finalizer be a problem?"
+    options:
+      - id: a
+        text: "The orphaned objects keep using resources and no Application reports on them"
+        explanation: "Correct."
+      - id: b
+        text: "Git loses the preview overlay"
+        explanation: "Git is not changed."
+      - id: c
+        text: "Argo CD stops syncing other Applications"
+        explanation: "The others are not affected."
+      - id: d
+        text: "The namespace is deleted"
+        explanation: "Namespaces are not removed by this."
+    correct_option: a
+    explanation: "Orphans are a cost and a blind spot."
+
+  - id: ats079-050-q09
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Generate and retire environments with an ApplicationSet"
+    source_readings:
+      - sections/section-050/module-01/course-03-applicationsets-generating-environments.md
+    prompt: "What does a list generator in an ApplicationSet produce?"
+    options:
+      - id: a
+        text: "One set of parameters for each element, which fills the template to make one Application"
+        explanation: "Correct."
+      - id: b
+        text: "One Git commit for each element"
+        explanation: "It does not write to Git."
+      - id: c
+        text: "One cluster for each element"
+        explanation: "Clusters come from a cluster generator."
+      - id: d
+        text: "One project for each element"
+        explanation: "Projects are separate objects."
+    correct_option: a
+    explanation: "Elements become Applications."
+
+  - id: ats079-050-q10
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Generate and retire environments with an ApplicationSet"
+    source_readings:
+      - sections/section-050/module-01/course-03-applicationsets-generating-environments.md
+    prompt: "A person edits a generated Application by hand. What happens at the next pass of the ApplicationSet controller?"
+    options:
+      - id: a
+        text: "The edit is kept"
+        explanation: "The template is the source."
+      - id: b
+        text: "The edit is overwritten by the template"
+        explanation: "Correct. Change the ApplicationSet instead."
+      - id: c
+        text: "The ApplicationSet is deleted"
+        explanation: "It is not."
+      - id: d
+        text: "The Application is detached from the set"
+        explanation: "Ownership stays."
+    correct_option: b
+    explanation: "A generated Application has one source of truth."
+
+  - id: ats079-050-q11
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Generate and retire environments with an ApplicationSet"
+    source_readings:
+      - sections/section-050/module-01/course-03-applicationsets-generating-environments.md
+    prompt: "An element is removed from the list, and the template carries the finalizer. What is removed?"
+    options:
+      - id: a
+        text: "Only the Application"
+        explanation: "That would leave orphans, which the finalizer prevents."
+      - id: b
+        text: "The Application and, through the cascade, its objects"
+        explanation: "Correct."
+      - id: c
+        text: "Only the objects"
+        explanation: "The Application is deleted too."
+      - id: d
+        text: "Nothing, until the ApplicationSet is deleted"
+        explanation: "The list drives deletion."
+    correct_option: b
+    explanation: "The finalizer is part of the template, so every generated Application has it."

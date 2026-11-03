@@ -1,0 +1,265 @@
+# Knowledge check for section 040. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats079-040
+course_id: ATS079
+exam_code: CNPA
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: section
+  id: section-040
+  title: "GitOps Basics and Workflows"
+questions:
+  - id: ats079-040-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Identify the components and principles of a GitOps-managed system"
+    source_readings:
+      - sections/section-040/module-01/course-01-gitops-principles-and-the-components-that-implement-them.md
+    prompt: "Which set lists the four GitOps principles?"
+    options:
+      - id: a
+        text: "Declarative, versioned and immutable, pulled automatically, continuously reconciled"
+        explanation: "Correct."
+      - id: b
+        text: "Declarative, push-based, manual, periodic"
+        explanation: "GitOps pulls and reconciles continuously."
+      - id: c
+        text: "Imperative, versioned, pulled, reconciled"
+        explanation: "The desired state is declarative."
+      - id: d
+        text: "Declarative, mutable, pulled, one-time"
+        explanation: "The history is versioned and the loop is continuous."
+    correct_option: a
+    explanation: "These four are the OpenGitOps principles."
+
+  - id: ats079-040-q02
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Identify the components and principles of a GitOps-managed system"
+    source_readings:
+      - sections/section-040/module-01/course-01-gitops-principles-and-the-components-that-implement-them.md
+    prompt: "Which Argo CD part renders manifests from a repository and holds no cluster credentials?"
+    options:
+      - id: a
+        text: "The application controller"
+        explanation: "It compares and applies, so it needs cluster access."
+      - id: b
+        text: "The repo-server"
+        explanation: "Correct. It clones and renders only."
+      - id: c
+        text: "Redis"
+        explanation: "Redis is a cache."
+      - id: d
+        text: "Dex"
+        explanation: "Dex handles sign-in."
+    correct_option: b
+    explanation: "Rendering is separated from applying."
+
+  - id: ats079-040-q03
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Identify the components and principles of a GitOps-managed system"
+    source_readings:
+      - sections/section-040/module-01/course-01-gitops-principles-and-the-components-that-implement-them.md
+    prompt: "What is created outside the GitOps loop and why?"
+    options:
+      - id: a
+        text: "The Application objects, because they are large"
+        explanation: "Applications can live in Git."
+      - id: b
+        text: "The first installation of the agent and its repository credentials, because the agent cannot deliver itself before it exists"
+        explanation: "Correct. A bootstrap step creates them once."
+      - id: c
+        text: "The Git history, because it is immutable"
+        explanation: "Git is the store."
+      - id: d
+        text: "The namespaces, because they are small"
+        explanation: "Namespaces can be delivered by the agent."
+    correct_option: b
+    explanation: "Bootstrap is the dependency that has to be handled explicitly."
+
+  - id: ats079-040-q04
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Identify the components and principles of a GitOps-managed system"
+    source_readings:
+      - sections/section-040/module-01/course-01-gitops-principles-and-the-components-that-implement-them.md
+    prompt: "The Git host is down for an hour. What happens to the running objects?"
+    options:
+      - id: a
+        text: "They are deleted"
+        explanation: "The agent deletes nothing when it cannot read Git."
+      - id: b
+        text: "They keep running, no new change is delivered and the Application shows a repository error"
+        explanation: "Correct. The agent is the delivery path, not the data path."
+      - id: c
+        text: "They are scaled to zero"
+        explanation: "Nothing scales them."
+      - id: d
+        text: "They are rolled back"
+        explanation: "No rollback happens."
+    correct_option: b
+    explanation: "An outage stops change and not service."
+
+  - id: ats079-040-q05
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Explain reconciliation and the sync policy switches"
+    source_readings:
+      - sections/section-040/module-01/course-02-reconciliation-drift-self-heal-and-prune.md
+    prompt: "An Application has `automated: {}`. A person scales its Deployment by hand. What does Argo CD do?"
+    options:
+      - id: a
+        text: "It undoes the change at once"
+        explanation: "That needs selfHeal."
+      - id: b
+        text: "It reports OutOfSync and leaves the change"
+        explanation: "Correct. Live changes are only reported without selfHeal."
+      - id: c
+        text: "It deletes the Deployment"
+        explanation: "Nothing is deleted."
+      - id: d
+        text: "It rolls back the Git commit"
+        explanation: "Argo CD never changes Git."
+    correct_option: b
+    explanation: "Without selfHeal the difference stays."
+
+  - id: ats079-040-q06
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Explain reconciliation and the sync policy switches"
+    source_readings:
+      - sections/section-040/module-01/course-02-reconciliation-drift-self-heal-and-prune.md
+    prompt: "A file is removed from Git, and the Application has `automated: {}`. What is the result?"
+    options:
+      - id: a
+        text: "The object is deleted"
+        explanation: "That needs prune."
+      - id: b
+        text: "The object stays and the Application is OutOfSync"
+        explanation: "Correct. Prune is a separate switch."
+      - id: c
+        text: "The commit is refused"
+        explanation: "Git accepts the commit."
+      - id: d
+        text: "The Application is deleted"
+        explanation: "It is not."
+    correct_option: b
+    explanation: "Deleting is off unless prune is on."
+
+  - id: ats079-040-q07
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Explain reconciliation and the sync policy switches"
+    source_readings:
+      - sections/section-040/module-01/course-02-reconciliation-drift-self-heal-and-prune.md
+    prompt: "Why do an autoscaler and selfHeal conflict when Git sets `replicas`?"
+    options:
+      - id: a
+        text: "The autoscaler changes replicas, and selfHeal resets them to the value in Git, repeatedly"
+        explanation: "Correct. Leave the field out of Git or use ignoreDifferences."
+      - id: b
+        text: "The autoscaler cannot read Deployments"
+        explanation: "It can."
+      - id: c
+        text: "selfHeal deletes the autoscaler"
+        explanation: "It does not."
+      - id: d
+        text: "Git forbids the field"
+        explanation: "Git has no such rule."
+    correct_option: a
+    explanation: "Two writers of one field fight."
+
+  - id: ats079-040-q08
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Reason about policy boundaries, identity and ownership"
+    source_readings:
+      - sections/section-040/module-01/course-03-policy-boundaries-identity-ownership-and-rollback.md
+    prompt: "Which project permits every repository, every destination and every kind after a default installation?"
+    options:
+      - id: a
+        text: "scout-team"
+        explanation: "This is a project created by the team."
+      - id: b
+        text: "default"
+        explanation: "Correct. It is a starting point and not a boundary."
+      - id: c
+        text: "system"
+        explanation: "There is no such project by default."
+      - id: d
+        text: "admin"
+        explanation: "There is no such project by default."
+    correct_option: b
+    explanation: "The default project has no limits."
+
+  - id: ats079-040-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Reason about policy boundaries, identity and ownership"
+    source_readings:
+      - sections/section-040/module-01/course-03-policy-boundaries-identity-ownership-and-rollback.md
+    prompt: "An Application targets a namespace that its project does not allow. What does the controller do?"
+    options:
+      - id: a
+        text: "It applies the objects and logs a warning"
+        explanation: "Nothing is applied."
+      - id: b
+        text: "It applies nothing and records an InvalidSpecError condition that names the project"
+        explanation: "Correct. The refusal is visible on the Application."
+      - id: c
+        text: "It deletes the Application"
+        explanation: "The Application stays."
+      - id: d
+        text: "It creates the namespace and stops"
+        explanation: "The project is checked before any write."
+    correct_option: b
+    explanation: "The policy is enforced at the write."
+
+  - id: ats079-040-q10
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Reason about policy boundaries, identity and ownership"
+    source_readings:
+      - sections/section-040/module-01/course-03-policy-boundaries-identity-ownership-and-rollback.md
+    prompt: "The cluster audit log shows the controller service account for a change. How do you find the person who caused it?"
+    options:
+      - id: a
+        text: "Read the audit log for a user name"
+        explanation: "It shows the service account."
+      - id: b
+        text: "Read `status.sync.revision` and the author of that commit in Git"
+        explanation: "Correct. Git records the person."
+      - id: c
+        text: "Read the Redis cache"
+        explanation: "It does not hold authors."
+      - id: d
+        text: "Ask the repo-server for a login"
+        explanation: "It holds no identity."
+    correct_option: b
+    explanation: "Two records answer who and why."
+
+  - id: ats079-040-q11
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Reason about policy boundaries, identity and ownership"
+    source_readings:
+      - sections/section-040/module-01/course-03-policy-boundaries-identity-ownership-and-rollback.md
+    prompt: "Which action undoes a bad commit in a way that keeps the record?"
+    options:
+      - id: a
+        text: "Force-push a history without the commit"
+        explanation: "The history no longer shows what ran."
+      - id: b
+        text: "`git revert` of the commit, pushed as a new commit"
+        explanation: "Correct. Both the release and the repair stay in the history."
+      - id: c
+        text: "`kubectl edit` of the Deployment"
+        explanation: "Git would still hold the bad state."
+      - id: d
+        text: "Delete the Application"
+        explanation: "This removes the delivery."
+    correct_option: b
+    explanation: "A rollback adds to the history."

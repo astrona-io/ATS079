@@ -1,0 +1,60 @@
+# yaml-language-server: $schema=https://cli.astrona.io/schema/lab-config.schema.json
+#
+# Roll Back A Bad Release And Write The Incident Record (LAB). Graded against the live cluster. Built untested.
+apiVersion: astrona.io/v1
+metadata:
+  name: ats-079-lab-020-01
+  docs:
+    prerequisites: prerequisites.md
+    question: question.md
+    solution: solution.md
+
+runtime:
+  type: kind
+  kind:
+    image: kindest/node:v1.35.8
+    preloadImages:
+      - curlimages/curl:8.22.0
+      - ghcr.io/stefanprodan/podinfo:6.15.0
+
+bootstrap:
+  manifests:
+    - name: lab-start
+      type: file
+      source: manifests/lab-start.yaml
+  init:
+    - name: break-scout
+      description: "Waits for the healthy scout and then releases the image tag 6.15.99"
+      type: file
+      source: bootstrap/01-break-scout.sh
+  waitFor:
+    - resource: deploy/shuttle
+      namespace: starfleet
+
+testing:
+  init:
+    - name: solution
+      description: Reference solution applied by `astrona test`
+      type: file
+      source: solution/apply.sh
+
+validation:
+  scripts:
+    - name: service-restored
+      description: "scout runs 6.15.0 with two ready replicas and two ready endpoints"
+      type: file
+      source: validation/validate-service-restored.sh
+      hint: "Use kubectl rollout undo deploy/scout, then wait with kubectl rollout status."
+    - name: history-kept
+      description: "The Deployment kept its history and the bad ReplicaSet has no replicas"
+      type: file
+      source: validation/validate-history-kept.sh
+      hint: "Do not delete the Deployment. A rollback keeps the ReplicaSet of the bad release at zero replicas."
+    - name: incident-record
+      description: "incident-record has severity, cause, mitigation rollback, status resolved and a timeline"
+      type: file
+      source: validation/validate-incident-record.sh
+      hint: "The cause must name the tag 6.15.99. The values of mitigation and status are exact words: rollback and resolved."
+
+teardown:
+  keepCluster: false

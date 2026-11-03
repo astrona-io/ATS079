@@ -1,9 +1,9 @@
-# Reading-only content; YAML knowledge checks have a separate index.
+# Course manifest for ATS079. Each section lists its README, modules (landing, parts, lab Question reading and lab entry, summary), a capstone and a quiz.
 training:
   id: ATS079
   title: 'CNPA: Continuous Delivery & Platform Engineering'
-  description: 'Detailed reading material and reusable YAML knowledge checks for CNPA: Continuous Delivery
-    & Platform Engineering. Technical content remains draft. No labs or playgrounds.'
+  description: Concept lessons, diagrams, playgrounds, graded labs, capstones and original scenario quizzes
+    covering every published objective in this CNPA domain. Labs run on kind (Kubernetes 1.35) and are built untested.
   certification:
     name: Certified Cloud Native Platform Engineering Associate
     code: CNPA
@@ -17,104 +17,357 @@ training:
     - GitOps Basics and Workflows
     - GitOps for Application Environments
 modules:
-- id: module-intro
-  title: Introduction
-  description: Audience, reading method and review process.
-  content:
-  - type: reading
+  - id: module-intro
     title: Introduction
-    path: sections/intro/README.md
-  - type: reading
-    title: Welcome To The Course
-    path: sections/intro/course-01-welcome.md
-  - type: reading
-    title: Get Your Machine Ready
-    path: sections/intro/course-02-get-your-machine-ready.md
-  - type: reading
-    title: How This Course Is Made
-    path: sections/intro/course-03-how-this-course-is-made.md
-- id: module-010
-  title: Continuous Integration Pipelines Overview
-  description: Developed reading and reasoning for Continuous Integration Pipelines Overview.
-  maturity: alpha
-  content:
-  - type: reading
-    title: Continuous Integration Pipelines Overview
-    path: sections/section-010/README.md
-  - type: reading
-    title: DAG Dependencies, Conditional Tasks And Parallel Work
-    path: sections/section-010/module-01/course.md
-  - type: reading
-    title: DAG Dependencies, Conditional Tasks And Parallel Work
-    path: sections/section-010/module-01/course-01-dag-dependencies-conditional-tasks-and-parallel-work.md
-  - type: reading
-    title: Summary
-    path: sections/section-010/module-01/course-02-summary.md
-- id: module-020
-  title: Incident Response in Platform Engineering
-  description: Developed reading and reasoning for Incident Response in Platform Engineering.
-  maturity: alpha
-  content:
-  - type: reading
-    title: Incident Response in Platform Engineering
-    path: sections/section-020/README.md
-  - type: reading
-    title: Incident Roles, Evidence And Platform Recovery
-    path: sections/section-020/module-01/course.md
-  - type: reading
-    title: Incident Roles, Evidence And Platform Recovery
-    path: sections/section-020/module-01/course-01-incident-roles-evidence-and-platform-recovery.md
-  - type: reading
-    title: Summary
-    path: sections/section-020/module-01/course-02-summary.md
-- id: module-030
-  title: CI/CD Relationship Fundamentals
-  description: Developed reading and reasoning for CI/CD Relationship Fundamentals.
-  maturity: alpha
-  content:
-  - type: reading
-    title: CI/CD Relationship Fundamentals
-    path: sections/section-030/README.md
-  - type: reading
-    title: Build Artifacts, Notifications And Observable Delivery Contracts
-    path: sections/section-030/module-01/course.md
-  - type: reading
-    title: Build Artifacts, Notifications And Observable Delivery Contracts
-    path: sections/section-030/module-01/course-01-build-artifacts-notifications-and-observable-delivery-contracts.md
-  - type: reading
-    title: Summary
-    path: sections/section-030/module-01/course-02-summary.md
-- id: module-040
-  title: GitOps Basics and Workflows
-  description: Developed reading and reasoning for GitOps Basics and Workflows.
-  maturity: alpha
-  content:
-  - type: reading
-    title: GitOps Basics and Workflows
-    path: sections/section-040/README.md
-  - type: reading
-    title: Managed Runtimes, Agents And Policy Boundaries
-    path: sections/section-040/module-01/course.md
-  - type: reading
-    title: Managed Runtimes, Agents And Policy Boundaries
-    path: sections/section-040/module-01/course-01-managed-runtimes-agents-and-policy-boundaries.md
-  - type: reading
-    title: Summary
-    path: sections/section-040/module-01/course-02-summary.md
-- id: module-050
-  title: GitOps for Application Environments
-  description: Developed reading and reasoning for GitOps for Application Environments.
-  maturity: alpha
-  content:
-  - type: reading
-    title: GitOps for Application Environments
-    path: sections/section-050/README.md
-  - type: reading
-    title: Application Source, Destination And Project Boundaries
-    path: sections/section-050/module-01/course.md
-  - type: reading
-    title: Application Source, Destination And Project Boundaries
-    path: sections/section-050/module-01/course-01-application-source-destination-and-project-boundaries.md
-  - type: reading
-    title: Summary
-    path: sections/section-050/module-01/course-02-summary.md
+    description: Audience, reading method and review process.
+    content:
+    - type: reading
+      title: Introduction
+      path: sections/intro/README.md
+    - type: reading
+      title: Welcome To The Course
+      path: sections/intro/course-01-welcome.md
+    - type: reading
+      title: Get Your Machine Ready
+      path: sections/intro/course-02-get-your-machine-ready.md
+    - type: reading
+      title: How This Course Is Made
+      path: sections/intro/course-03-how-this-course-is-made.md
+  - id: module-010
+    title: "Continuous Integration Pipelines Overview"
+    description: >
+      Makes the reader able to read and write a continuous integration pipeline as a graph of tasks:
+      dependencies and parallel work, conditions on task results, fail-fast behavior and retries, outputs,
+      and concurrency limits, with Argo Workflows.
+
+    content:
+      - type: reading
+        title: "Section Overview"
+        path: sections/section-010/README.md
+      - type: reading
+        title: "DAG Dependencies, Conditional Tasks And Parallel Work"
+        path: sections/section-010/module-01/course.md
+      - type: reading
+        title: "DAG Dependencies, Conditional Tasks And Parallel Work"
+        path: sections/section-010/module-01/course-01-dag-dependencies-conditional-tasks-and-parallel-work.md
+      - type: reading
+        title: "Conditional Tasks, Failure And Retries"
+        path: sections/section-010/module-01/course-02-conditional-tasks-failure-and-retries.md
+      - type: reading
+        title: "Data, Outputs And Parallelism Limits"
+        path: sections/section-010/module-01/course-03-data-outputs-and-parallelism-limits.md
+      - type: reading
+        title: "Question"
+        path: sections/section-010/module-01/labs/lab-01/question.md
+      - type: lab
+        title: "Build A CI Pipeline As A DAG Lab"
+        path: sections/section-010/module-01/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: ci-pipelines
+        task_kind: build
+        tags: [argo-workflows, dag, depends, when, parallel]
+        learning_goals:
+          - Write a WorkflowTemplate whose lint and test tasks run in parallel
+          - Make package wait for both checks and publish run only on a parameter
+          - Read task start and finish times from the workflow status
+        resources:
+          - name: "Argo Workflows DAG"
+            url: https://argo-workflows.readthedocs.io/en/latest/walk-through/dag/
+      - type: reading
+        title: "Summary"
+        path: sections/section-010/module-01/course-04-summary.md
+      - type: reading
+        title: "Question"
+        path: sections/section-010/capstone/labs/lab-01/question.md
+      - type: lab
+        title: "CI Pipelines Capstone"
+        path: sections/section-010/capstone/labs/lab-01
+        difficulty: advanced
+        estimated_duration: 45m
+        topic: ci-pipelines
+        task_kind: build
+        tags: [argo-workflows, retry, outputs, parallelism, when]
+        learning_goals:
+          - Pass an output parameter to a task with a matching dependency
+          - Retry a failing task and prove the retry from the workflow status
+          - Skip a task by parameter and limit concurrency to two pods
+        resources:
+          - name: "Argo Workflows retries"
+            url: https://argo-workflows.readthedocs.io/en/latest/retries/
+          - name: "Argo Workflows DAG"
+            url: https://argo-workflows.readthedocs.io/en/latest/walk-through/dag/
+      - type: quiz
+        title: "Knowledge Check: Continuous Integration Pipelines Overview"
+        path: sections/section-010/quiz.yaml
+        pass_score: 70
+  - id: module-020
+    title: "Incident Response in Platform Engineering"
+    description: >
+      Makes the reader able to respond to a platform incident on Kubernetes: roles, evidence, rollback of a bad release,
+      classification of pod failures and an incident record, with plain kubectl on a kind cluster.
+
+    content:
+      - type: reading
+        title: "Section Overview"
+        path: sections/section-020/README.md
+      - type: reading
+        title: "Incident Roles, Evidence And Platform Recovery"
+        path: sections/section-020/module-01/course.md
+      - type: reading
+        title: "Incident Roles, Severity And Evidence"
+        path: sections/section-020/module-01/course-01-incident-roles-evidence-and-platform-recovery.md
+      - type: reading
+        title: "Mitigation First: Rolling Back A Bad Release"
+        path: sections/section-020/module-01/course-02-mitigation-first-rolling-back-a-bad-release.md
+      - type: reading
+        title: "Configuration Faults, Crash Loops And Readiness"
+        path: sections/section-020/module-01/course-03-configuration-faults-crash-loops-and-readiness.md
+      - type: reading
+        title: "Question"
+        path: sections/section-020/module-01/labs/lab-01/question.md
+      - type: lab
+        title: "Roll Back A Bad Release And Write The Incident Record Lab"
+        path: sections/section-020/module-01/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 20m
+        topic: incident-response
+        task_kind: troubleshoot
+        tags: [incident, rollback, deployment, events]
+        learning_goals:
+          - Find why a rollout is stuck from the Deployment, the ReplicaSets and the events
+          - Restore the service with a rollback and keep the revision history
+          - Record the cause, mitigation and status in an incident record
+        resources:
+          - name: "Deployments and rollbacks"
+            url: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+      - type: reading
+        title: "Summary"
+        path: sections/section-020/module-01/course-04-summary.md
+      - type: reading
+        title: "Question"
+        path: sections/section-020/capstone/labs/lab-01/question.md
+      - type: lab
+        title: "Incident Response Capstone"
+        path: sections/section-020/capstone/labs/lab-01
+        difficulty: advanced
+        estimated_duration: 40m
+        topic: incident-response
+        task_kind: troubleshoot
+        tags: [incident, configmap, readiness, imagepullbackoff]
+        learning_goals:
+          - Classify three pod failures from their status and events
+          - Repair an image tag, a missing ConfigMap key and a wrong readiness probe port in place
+          - Record one cause per service in the incident record
+        resources:
+          - name: "Debug Pods"
+            url: https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/
+          - name: "Configure Liveness, Readiness and Startup Probes"
+            url: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+      - type: quiz
+        title: "Knowledge Check: Incident Response in Platform Engineering"
+        path: sections/section-020/quiz.yaml
+        pass_score: 70
+  - id: module-030
+    title: "CI/CD Relationship Fundamentals"
+    description: >
+      Makes the reader able to explain how CI and CD relate and to verify a Git-based delivery with Argo CD:
+      artifact references, promotion by commit, sync and health evidence and delivery records.
+
+    content:
+      - type: reading
+        title: "Section Overview"
+        path: sections/section-030/README.md
+      - type: reading
+        title: "Build Artifacts, Notifications And Observable Delivery Contracts"
+        path: sections/section-030/module-01/course.md
+      - type: reading
+        title: "CI, Continuous Delivery And Continuous Deployment"
+        path: sections/section-030/module-01/course-01-ci-continuous-delivery-and-continuous-deployment.md
+      - type: reading
+        title: "Git As The Handoff: Promotion By Commit"
+        path: sections/section-030/module-01/course-02-git-as-the-handoff-promotion-by-commit.md
+      - type: reading
+        title: "Observing Delivery: Status, Revision And Delivery Records"
+        path: sections/section-030/module-01/course-03-observing-delivery-status-revision-and-delivery-records.md
+      - type: reading
+        title: "Question"
+        path: sections/section-030/module-01/labs/lab-01/question.md
+      - type: lab
+        title: "Promote Staging By Commit And Record The Delivery Lab"
+        path: sections/section-030/module-01/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: gitops
+        task_kind: deploy
+        tags: [argocd, gitops, promotion, delivery]
+        learning_goals:
+          - Promote a version by changing Git instead of the cluster
+          - Verify the delivery from the sync status, health and revision of the Application
+          - Record the environment, version and commit in a delivery record
+        resources:
+          - name: "Argo CD automated sync policy"
+            url: https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/
+      - type: reading
+        title: "Summary"
+        path: sections/section-030/module-01/course-04-summary.md
+      - type: reading
+        title: "Question"
+        path: sections/section-030/capstone/labs/lab-01/question.md
+      - type: lab
+        title: "Delivery Contract Capstone"
+        path: sections/section-030/capstone/labs/lab-01
+        difficulty: advanced
+        estimated_duration: 40m
+        topic: gitops
+        task_kind: deploy
+        tags: [argocd, gitops, promotion, environments]
+        learning_goals:
+          - Promote staging and then production in two separate commits
+          - Verify both deliveries at the head commit
+          - Record the commit that changed each environment
+        resources:
+          - name: "Argo CD automated sync policy"
+            url: https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/
+          - name: "Argo CD Kustomize support"
+            url: https://argo-cd.readthedocs.io/en/stable/user-guide/kustomize/
+      - type: quiz
+        title: "Knowledge Check: CI/CD Relationship Fundamentals"
+        path: sections/section-030/quiz.yaml
+        pass_score: 70
+  - id: module-040
+    title: "GitOps Basics and Workflows"
+    description: >
+      Makes the reader able to explain the parts of a GitOps setup and to enforce and test its limits:
+      reconciliation switches, project boundaries, identity, ownership and rollback by revert.
+
+    content:
+      - type: reading
+        title: "Section Overview"
+        path: sections/section-040/README.md
+      - type: reading
+        title: "Managed Runtimes, Agents And Policy Boundaries"
+        path: sections/section-040/module-01/course.md
+      - type: reading
+        title: "GitOps Principles And The Components That Implement Them"
+        path: sections/section-040/module-01/course-01-gitops-principles-and-the-components-that-implement-them.md
+      - type: reading
+        title: "Reconciliation: Drift, Self-Heal And Prune"
+        path: sections/section-040/module-01/course-02-reconciliation-drift-self-heal-and-prune.md
+      - type: reading
+        title: "Policy Boundaries: Identity, Ownership And Rollback"
+        path: sections/section-040/module-01/course-03-policy-boundaries-identity-ownership-and-rollback.md
+      - type: reading
+        title: "Question"
+        path: sections/section-040/module-01/labs/lab-01/question.md
+      - type: lab
+        title: "Revert A Bad Release And Make Argo CD Enforce Git Lab"
+        path: sections/section-040/module-01/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: gitops
+        task_kind: troubleshoot
+        tags: [argocd, gitops, revert, selfheal, prune]
+        learning_goals:
+          - Undo a bad release with a revert commit that keeps the history
+          - Verify the delivery from sync and health status at the head commit
+          - Turn on prune and selfHeal and prove that a hand edit is undone
+        resources:
+          - name: "Argo CD automated sync policy"
+            url: https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/
+      - type: reading
+        title: "Summary"
+        path: sections/section-040/module-01/course-04-summary.md
+      - type: reading
+        title: "Question"
+        path: sections/section-040/capstone/labs/lab-01/question.md
+      - type: lab
+        title: "Policy Boundary Capstone"
+        path: sections/section-040/capstone/labs/lab-01
+        difficulty: advanced
+        estimated_duration: 35m
+        topic: gitops
+        task_kind: deploy
+        tags: [argocd, appproject, policy, destinations]
+        learning_goals:
+          - Create a project that allows one repository and one destination
+          - Move an Application into the project without breaking its delivery
+          - Prove that an Application for production is refused
+        resources:
+          - name: "Argo CD projects"
+            url: https://argo-cd.readthedocs.io/en/stable/user-guide/projects/
+      - type: quiz
+        title: "Knowledge Check: GitOps Basics and Workflows"
+        path: sections/section-040/quiz.yaml
+        pass_score: 70
+  - id: module-050
+    title: "GitOps for Application Environments"
+    description: >
+      Makes the reader able to describe, limit and generate application environments with Argo CD:
+      source and destination, projects, the finalizer lifecycle and ApplicationSets.
+
+    content:
+      - type: reading
+        title: "Section Overview"
+        path: sections/section-050/README.md
+      - type: reading
+        title: "Application Source, Destination And Project Boundaries"
+        path: sections/section-050/module-01/course.md
+      - type: reading
+        title: "Application Source And Destination"
+        path: sections/section-050/module-01/course-01-application-source-and-destination.md
+      - type: reading
+        title: "Environments, Projects And The Deletion Lifecycle"
+        path: sections/section-050/module-01/course-02-environments-projects-and-the-deletion-lifecycle.md
+      - type: reading
+        title: "ApplicationSets: Generating Environments"
+        path: sections/section-050/module-01/course-03-applicationsets-generating-environments.md
+      - type: reading
+        title: "Question"
+        path: sections/section-050/module-01/labs/lab-01/question.md
+      - type: lab
+        title: "Environments In A Project With Their Own Deletion Policy Lab"
+        path: sections/section-050/module-01/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: gitops
+        task_kind: deploy
+        tags: [argocd, appproject, application, finalizer]
+        learning_goals:
+          - Create a project that allows exactly two environments
+          - Create two Applications with different finalizer policies
+          - Prove that the preview namespace is refused
+        resources:
+          - name: "Argo CD projects"
+            url: https://argo-cd.readthedocs.io/en/stable/user-guide/projects/
+      - type: reading
+        title: "Summary"
+        path: sections/section-050/module-01/course-04-summary.md
+      - type: reading
+        title: "Question"
+        path: sections/section-050/capstone/labs/lab-01/question.md
+      - type: lab
+        title: "Environment Generation Capstone"
+        path: sections/section-050/capstone/labs/lab-01
+        difficulty: advanced
+        estimated_duration: 40m
+        topic: gitops
+        task_kind: deploy
+        tags: [argocd, applicationset, promotion, environments]
+        learning_goals:
+          - Generate three environments from one ApplicationSet template
+          - Promote two environments in two ordered commits
+          - Retire an environment by removing its element and verify that its objects are gone
+        resources:
+          - name: "Argo CD ApplicationSet"
+            url: https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/
+          - name: "Argo CD projects"
+            url: https://argo-cd.readthedocs.io/en/stable/user-guide/projects/
+      - type: quiz
+        title: "Knowledge Check: GitOps for Application Environments"
+        path: sections/section-050/quiz.yaml
+        pass_score: 70
+      - type: quiz
+        title: "Final Knowledge Check: Continuous Delivery & Platform Engineering"
+        path: sections/final-domain-quiz.yaml
+        pass_score: 70

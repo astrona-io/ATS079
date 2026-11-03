@@ -1,0 +1,55 @@
+# yaml-language-server: $schema=https://cli.astrona.io/schema/lab-config.schema.json
+#
+# Incident Response Capstone (LAB). Three services, three fault classes. Graded against the live cluster. Built untested.
+apiVersion: astrona.io/v1
+metadata:
+  name: ats-079-lab-020-capstone
+  docs:
+    prerequisites: prerequisites.md
+    question: question.md
+    solution: solution.md
+
+runtime:
+  type: kind
+  kind:
+    image: kindest/node:v1.35.8
+    preloadImages:
+      - curlimages/curl:8.22.0
+      - ghcr.io/stefanprodan/podinfo:6.15.0
+
+bootstrap:
+  manifests:
+    - name: lab-start
+      type: file
+      source: manifests/lab-start.yaml
+  waitFor:
+    - resource: deploy/shuttle
+      namespace: starfleet
+
+testing:
+  init:
+    - name: solution
+      description: Reference solution applied by `astrona test`
+      type: file
+      source: solution/apply.sh
+
+validation:
+  scripts:
+    - name: scout-and-bridge
+      description: "scout and bridge run 6.15.0, are ready and were updated in place"
+      type: file
+      source: validation/validate-scout-and-bridge.sh
+      hint: "scout has a bad image tag. bridge probes the wrong port. Fix both in the Deployment; do not delete it."
+    - name: probe-config
+      description: "probe reads MODE from probe-config key mode, the key exists and the pod is ready"
+      type: file
+      source: validation/validate-probe-config.sh
+      hint: "Add the key mode to the ConfigMap probe-config instead of changing the Deployment."
+    - name: incident-record
+      description: "incident-record names a cause for each service and has the status resolved"
+      type: file
+      source: validation/validate-incident-record.sh
+      hint: "Use the words image, ConfigMap and readiness in the keys scout, probe and bridge, and set status to resolved."
+
+teardown:
+  keepCluster: false

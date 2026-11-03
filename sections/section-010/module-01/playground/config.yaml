@@ -1,0 +1,36 @@
+# yaml-language-server: $schema=https://cli.astrona.io/schema/lab-config.schema.json
+#
+# DAG Dependencies, Conditional Tasks And Parallel Work (PLAYGROUND). Argo Workflows v4.1.6 in starfleet.
+# No WorkflowTemplate exists. No task, no grading. Built untested.
+apiVersion: astrona.io/v1
+metadata:
+  name: ats-079-playground-010-01
+  docs:
+    guide: docs/overview.md
+
+runtime:
+  type: kind
+  kind:
+    image: kindest/node:v1.35.8
+    preloadImages:
+      - curlimages/curl:8.22.0
+      - alpine:3.23
+      - quay.io/argoproj/workflow-controller:v4.1.6
+      - quay.io/argoproj/argoexec:v4.1.6
+
+bootstrap:
+  manifests:
+    - name: lab-start
+      type: file
+      source: manifests/lab-start.yaml
+  init:
+    - name: install-argo-workflows
+      description: "Installs Argo Workflows v4.1.6 into starfleet (namespaced, without the Argo server)"
+      type: file
+      source: bootstrap/01-install-argo-workflows.sh
+  waitFor:
+    - resource: deploy/shuttle
+      namespace: starfleet
+
+teardown:
+  keepCluster: false

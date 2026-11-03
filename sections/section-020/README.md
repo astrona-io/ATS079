@@ -1,16 +1,47 @@
 ---
 draft: true
 exam_objectives:
-- Incident Response in Platform Engineering
+  - Incident Response in Platform Engineering
 ---
-# Incident Response in Platform Engineering
+# Section 020: Incident Response in Platform Engineering
 
-This section covers incident Response in Platform Engineering. It develops incident Roles, Evidence And Platform Recovery through mechanisms, examples, prerequisites and failure reasoning.
+This section teaches the first hour of a platform incident: who does what, which evidence Kubernetes keeps, how to restore service by rolling back a bad release, and how to tell the main classes of pod failure apart. Everything runs on a kind cluster with plain `kubectl`.
 
-Read the module goals, teaching and closing summary in order. YAML checks are indexed separately and appear after designated summaries. Larger domains can include intermediate checkpoints before the final review.
+**Exam objective covered:** Incident Response in Platform Engineering
 
-## Learning Outcomes
+---
 
-- Distinguish platform incidents from application-specific failures.
-- Explain incident coordination, mitigation and communication.
-- Reason about recovery evidence and follow-up improvements.
+## What You Will Master
+
+- Name the incident roles and explain why mitigation comes before root cause analysis.
+- Read Deployment conditions, ReplicaSets, pod states and events as evidence.
+- Explain why a failed rolling update keeps the old pods running, and roll back with `kubectl rollout undo`.
+- Classify an image pull failure, a configuration error, a crash loop and a failing readiness probe.
+- Write an incident record that others can use in a review.
+
+---
+
+## The Learning Path
+
+### 1. Incident Roles, Evidence And Platform Recovery
+*   **Module Reader:** **[Module 1: Incident Roles, Evidence And Platform Recovery](./module-01/course.md)**
+*   **Hands-on Playground:** `sections/section-020/module-01/playground` - kind cluster, `kubectl`. A healthy `scout` with two replicas runs in `starfleet`; nothing is broken.
+    ```bash
+    astrona run --git ssh://git@github.com/astrona-io/ATS079.git -c sections/section-020/module-01/playground
+    ```
+*   **Lab:** `sections/section-020/module-01/labs/lab-01` (UNTESTED)
+    ```bash
+    astrona run --git ssh://git@github.com/astrona-io/ATS079.git -c sections/section-020/module-01/labs/lab-01
+    astrona submit -c .
+    ```
+
+### Section Capstone Challenge
+*   **Comprehensive Challenge:** Incident Response Capstone - `sections/section-020/capstone/labs/lab-01` (UNTESTED)
+    ```bash
+    astrona run --git ssh://git@github.com/astrona-io/ATS079.git -c sections/section-020/capstone/labs/lab-01
+    astrona submit -c .
+    ```
+*   **Hands-on Objective:** Repair three services that fail for three different reasons, without deleting any Deployment, and record the cause of each in a ConfigMap.
+
+### Knowledge Check
+*   **Quiz:** 11 questions in `sections/section-020/quiz.yaml`. The pass score is 70 percent.

@@ -1,5 +1,7 @@
 # Reusable Question Banks
 
+The quizzes now live next to the course: `sections/section-NNN/quiz.yaml` for each section and `sections/final-domain-quiz.yaml` for the domain. All are listed in `astrona.yaml` as `type: quiz` entries with a pass score of 70. `assessments/index.yaml` has no banks, and `assessments/domain-review.yaml` is superseded. The text below describes the shared format.
+
 `assessments/index.yaml` lists banks in teaching order. Each bank uses schema
 version 1 and the contract in `schemas/question-bank.schema.json`. This is an
 authoring format for future application integration, not an existing Astrona

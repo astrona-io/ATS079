@@ -1,0 +1,265 @@
+# Knowledge check for section 030. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats079-030
+course_id: ATS079
+exam_code: CNPA
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: section
+  id: section-030
+  title: "CI/CD Relationship Fundamentals"
+questions:
+  - id: ats079-030-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Differentiate CI, continuous delivery and continuous deployment"
+    source_readings:
+      - sections/section-030/module-01/course-01-ci-continuous-delivery-and-continuous-deployment.md
+    prompt: "What distinguishes continuous deployment from continuous delivery?"
+    options:
+      - id: a
+        text: "Continuous deployment skips the tests."
+        explanation: "Both practices run the tests."
+      - id: b
+        text: "Continuous deployment releases every passing change without a manual release decision."
+        explanation: "Correct. In continuous delivery, a person decides when to release."
+      - id: c
+        text: "Continuous deployment builds the artifact."
+        explanation: "Building belongs to continuous integration."
+      - id: d
+        text: "Continuous deployment needs no Git repository."
+        explanation: "Both usually start from a repository."
+    correct_option: b
+    explanation: "The difference is the release decision."
+
+  - id: ats079-030-q02
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Differentiate CI, continuous delivery and continuous deployment"
+    source_readings:
+      - sections/section-030/module-01/course-01-ci-continuous-delivery-and-continuous-deployment.md
+    prompt: "What does continuous integration produce for the later stages?"
+    options:
+      - id: a
+        text: "A tested, versioned artifact"
+        explanation: "Correct. It is the unit that later stages deliver."
+      - id: b
+        text: "A running environment"
+        explanation: "Environments belong to delivery."
+      - id: c
+        text: "A rollback plan"
+        explanation: "A rollback is a delivery decision."
+      - id: d
+        text: "A list of notifications"
+        explanation: "Notifications are a separate concern."
+    correct_option: a
+    explanation: "CI ends with an artifact that passed the checks."
+
+  - id: ats079-030-q03
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Differentiate CI, continuous delivery and continuous deployment"
+    source_readings:
+      - sections/section-030/module-01/course-01-ci-continuous-delivery-and-continuous-deployment.md
+    prompt: "Why does a digest tie the tested image to the deployed image better than a tag?"
+    options:
+      - id: a
+        text: "A digest is shorter."
+        explanation: "It is longer."
+      - id: b
+        text: "A tag can be moved to other content, and a digest names exactly one content."
+        explanation: "Correct. The digest is computed from the content."
+      - id: c
+        text: "A tag is encrypted."
+        explanation: "Tags are plain names."
+      - id: d
+        text: "A digest is pulled faster."
+        explanation: "Pull speed does not differ."
+    correct_option: b
+    explanation: "Only an immutable reference guarantees the same bytes."
+
+  - id: ats079-030-q04
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Explain how CI and CD hand over through artifacts and Git"
+    source_readings:
+      - sections/section-030/module-01/course-01-ci-continuous-delivery-and-continuous-deployment.md
+    prompt: "In pull delivery, where do the cluster credentials live?"
+    options:
+      - id: a
+        text: "In the CI job"
+        explanation: "That describes push delivery."
+      - id: b
+        text: "In the delivery agent that runs in or next to the cluster"
+        explanation: "Correct. CI needs write access to Git and nothing in the cluster."
+      - id: c
+        text: "In the developer laptops"
+        explanation: "Laptops are not part of the contract."
+      - id: d
+        text: "In the artifact registry"
+        explanation: "The registry stores images."
+    correct_option: b
+    explanation: "A compromised CI job cannot reach the cluster with pull delivery."
+
+  - id: ats079-030-q05
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Explain how CI and CD hand over through artifacts and Git"
+    source_readings:
+      - sections/section-030/module-01/course-02-git-as-the-handoff-promotion-by-commit.md
+    prompt: "What is the whole contract that CI hands to Argo CD after a successful build?"
+    options:
+      - id: a
+        text: "A commit in the Git repository that names the new artifact"
+        explanation: "Correct. Argo CD reads Git and does the rest."
+      - id: b
+        text: "A kubectl command"
+        explanation: "CI does not run kubectl in pull delivery."
+      - id: c
+        text: "A message to the Application"
+        explanation: "Argo CD reads Git, not messages."
+      - id: d
+        text: "A copy of the image"
+        explanation: "The image is in the registry."
+    correct_option: a
+    explanation: "A promotion is a commit."
+
+  - id: ats079-030-q06
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Explain how CI and CD hand over through artifacts and Git"
+    source_readings:
+      - sections/section-030/module-01/course-02-git-as-the-handoff-promotion-by-commit.md
+    prompt: "Staging was promoted with a commit, and the Application still shows the old version after a few seconds. Why?"
+    options:
+      - id: a
+        text: "Argo CD only refreshes at the interval or on request, and the default interval is about three minutes."
+        explanation: "Correct. A refresh annotation or a webhook starts the comparison at once."
+      - id: b
+        text: "The commit was rejected."
+        explanation: "A push that succeeded is accepted."
+      - id: c
+        text: "The Deployment ignores Git."
+        explanation: "The Deployment controller applies what Argo CD syncs."
+      - id: d
+        text: "Argo CD needs a restart."
+        explanation: "No restart is needed."
+    correct_option: a
+    explanation: "Polling delays the start of the delivery."
+
+  - id: ats079-030-q07
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Explain how CI and CD hand over through artifacts and Git"
+    source_readings:
+      - sections/section-030/module-01/course-02-git-as-the-handoff-promotion-by-commit.md
+    prompt: "Which action rolls back a promotion in a Git-based delivery?"
+    options:
+      - id: a
+        text: "kubectl edit on the Deployment"
+        explanation: "Self-heal would undo the edit, and Git would still be wrong."
+      - id: b
+        text: "A revert commit in the repository"
+        explanation: "Correct. The history keeps both the release and the repair."
+      - id: c
+        text: "Deleting the Application"
+        explanation: "This removes the delivery and may delete the objects."
+      - id: d
+        text: "Restarting the controller"
+        explanation: "This changes nothing in Git."
+    correct_option: b
+    explanation: "A rollback is a revert."
+
+  - id: ats079-030-q08
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Interpret delivery signals from Argo CD"
+    source_readings:
+      - sections/section-030/module-01/course-03-observing-delivery-status-revision-and-delivery-records.md
+    prompt: "Which field of an Application names the Git commit that was compared?"
+    options:
+      - id: a
+        text: "status.health.status"
+        explanation: "This is the health summary."
+      - id: b
+        text: "status.sync.revision"
+        explanation: "Correct. The comparison used this commit."
+      - id: c
+        text: "spec.destination.namespace"
+        explanation: "This is the target namespace."
+      - id: d
+        text: "metadata.generation"
+        explanation: "This counts changes of the object."
+    correct_option: b
+    explanation: "The revision field links the state to Git."
+
+  - id: ats079-030-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Interpret delivery signals from Argo CD"
+    source_readings:
+      - sections/section-030/module-01/course-03-observing-delivery-status-revision-and-delivery-records.md
+    prompt: "An Application is Synced and its Deployment points to a tag that does not exist. What are the sync and health statuses?"
+    options:
+      - id: a
+        text: "OutOfSync and Degraded"
+        explanation: "The live objects match Git, so it is not OutOfSync."
+      - id: b
+        text: "Synced, and Progressing and later Degraded"
+        explanation: "Correct. The manifests were applied as written, and the pods cannot start."
+      - id: c
+        text: "Synced and Healthy"
+        explanation: "The Deployment cannot become healthy."
+      - id: d
+        text: "Unknown and Missing"
+        explanation: "The objects exist and were compared."
+    correct_option: b
+    explanation: "Sync and health are independent."
+
+  - id: ats079-030-q10
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Interpret delivery signals from Argo CD"
+    source_readings:
+      - sections/section-030/module-01/course-03-observing-delivery-status-revision-and-delivery-records.md
+    prompt: "Why is a notification not the source of truth for a delivery?"
+    options:
+      - id: a
+        text: "It can arrive late or be lost, and it only points to the Application."
+        explanation: "Correct. The Application status holds the evidence."
+      - id: b
+        text: "Notifications are always wrong."
+        explanation: "They are usually correct."
+      - id: c
+        text: "Notifications change the Deployment."
+        explanation: "They only send messages."
+      - id: d
+        text: "Notifications are signed by Git."
+        explanation: "Git does not sign them."
+    correct_option: a
+    explanation: "Treat it as a prompt to look at the status."
+
+  - id: ats079-030-q11
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Interpret delivery signals from Argo CD"
+    source_readings:
+      - sections/section-030/module-01/course-03-observing-delivery-status-revision-and-delivery-records.md
+    prompt: "An automated sync of a commit failed. The pipeline pushes the same content again as a new run. What does Argo CD do?"
+    options:
+      - id: a
+        text: "It retries because the content is the same."
+        explanation: "A retry by content does not happen."
+      - id: b
+        text: "It does not start the sync again for the same commit and parameters, and a new commit makes a new attempt."
+        explanation: "Correct. A new commit is a new revision, so it is attempted."
+      - id: c
+        text: "It rolls back automatically."
+        explanation: "Automated sync does not roll back."
+      - id: d
+        text: "It deletes the Application."
+        explanation: "Nothing is deleted."
+    correct_option: b
+    explanation: "Only a new revision starts a new attempt after a failure."

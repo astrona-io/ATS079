@@ -1,0 +1,288 @@
+# Knowledge check for section 010. Listed in astrona.yaml as a `type: quiz` entry after the capstone lab.
+schema_version: 1
+kind: question_bank
+id: ats079-010
+course_id: ATS079
+exam_code: CNPA
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: section
+  id: section-010
+  title: "Continuous Integration Pipelines Overview"
+questions:
+  - id: ats079-010-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Explain acyclic task dependencies and eligible parallelism"
+    source_readings:
+      - sections/section-010/module-01/course-01-dag-dependencies-conditional-tasks-and-parallel-work.md
+    prompt: "A DAG has the tasks build, lint, test and package. lint and test depend only on build. package depends on lint and test. Which statement is correct?"
+    options:
+      - id: a
+        text: "lint and test can run at the same time once build succeeded."
+        explanation: "Correct. Both tasks become eligible at the same moment and the workflow controller creates a pod for each."
+      - id: b
+        text: "lint must finish before test can start, because they are listed in order."
+        explanation: "The order of the list does not matter; only depends decides."
+      - id: c
+        text: "package can start as soon as build succeeded."
+        explanation: "package waits for lint and test, not only build."
+      - id: d
+        text: "The graph is invalid because two tasks share the same dependency."
+        explanation: "Fan-out from one task is allowed in a DAG."
+    correct_option: a
+    explanation: "lint and test have the same dependency and no dependency on each other, so both become eligible together."
+
+  - id: ats079-010-q02
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Explain acyclic task dependencies and eligible parallelism"
+    source_readings:
+      - sections/section-010/module-01/course-01-dag-dependencies-conditional-tasks-and-parallel-work.md
+    prompt: "Which component creates the pod for a task in a DAG when the dependencies of the task are met?"
+    options:
+      - id: a
+        text: "The Kubernetes scheduler"
+        explanation: "The scheduler only chooses a node for a pod that already exists."
+      - id: b
+        text: "The workflow controller"
+        explanation: "Correct. It watches Workflow objects, creates the pod and records the result in the status."
+      - id: c
+        text: "The kubelet"
+        explanation: "The kubelet starts containers of pods that are already assigned to its node."
+      - id: d
+        text: "The WorkflowTemplate"
+        explanation: "A template stores a definition and does not act."
+    correct_option: b
+    explanation: "The workflow controller decides when a task starts and creates its pod."
+
+  - id: ats079-010-q03
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Explain acyclic task dependencies and eligible parallelism"
+    source_readings:
+      - sections/section-010/module-01/course-01-dag-dependencies-conditional-tasks-and-parallel-work.md
+    prompt: "A task is eligible, but `kubectl get pods` shows its pod in the Pending state. What is the most likely cause?"
+    options:
+      - id: a
+        text: "A cycle in the graph"
+        explanation: "A cycle is rejected when the workflow is submitted and does not leave a Pending pod."
+      - id: b
+        text: "The pod waits for a node with enough resources or for an image"
+        explanation: "Correct. Eligible means the dependencies are met. Placement and image pull still depend on the cluster."
+      - id: c
+        text: "The depends expression is false"
+        explanation: "If it were false, the controller would not have created a pod."
+      - id: d
+        text: "The task has a retryStrategy"
+        explanation: "A retry strategy does not keep a first pod Pending."
+    correct_option: b
+    explanation: "The graph made the task eligible and the cluster has not run its pod yet."
+
+  - id: ats079-010-q04
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Interpret dependency results and fail-fast behavior"
+    source_readings:
+      - sections/section-010/module-01/course-02-conditional-tasks-failure-and-retries.md
+    prompt: "What does `depends: build` mean when it uses only the task name?"
+    options:
+      - id: a
+        text: "build.Succeeded only"
+        explanation: "The bare name also accepts a skipped task."
+      - id: b
+        text: "build.Succeeded || build.Skipped || build.Daemoned"
+        explanation: "Correct. This is the default shorthand."
+      - id: c
+        text: "build.Completed"
+        explanation: "Completed would also accept a failure."
+      - id: d
+        text: "build.Failed"
+        explanation: "A bare name never means failure."
+    correct_option: b
+    explanation: "A bare task name is shorthand for success, skip or a running daemon."
+
+  - id: ats079-010-q05
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Interpret dependency results and fail-fast behavior"
+    source_readings:
+      - sections/section-010/module-01/course-02-conditional-tasks-failure-and-retries.md
+    prompt: "A notification task must run after the tests, whether they passed or failed. Which condition does that?"
+    options:
+      - id: a
+        text: "depends: test"
+        explanation: "This runs it only after success or skip."
+      - id: b
+        text: "depends: test.Succeeded"
+        explanation: "This never runs after a failure."
+      - id: c
+        text: "depends: test.Completed"
+        explanation: "Correct. Completed matches every result except Skipped, including Failed."
+      - id: d
+        text: "when: test == failed"
+        explanation: "The when field tests a value, and this is not a result condition."
+    correct_option: c
+    explanation: "The Completed result matches a task that ran and ended, with any outcome."
+
+  - id: ats079-010-q06
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Interpret dependency results and fail-fast behavior"
+    source_readings:
+      - sections/section-010/module-01/course-02-conditional-tasks-failure-and-retries.md
+    prompt: "A task has `when: \"{{workflow.parameters.publish}} == true\"` and the parameter is `false`. What is the phase of the task and of the workflow?"
+    options:
+      - id: a
+        text: "The task is Failed and the workflow is Failed."
+        explanation: "A false when expression is not a failure."
+      - id: b
+        text: "The task is Skipped and the workflow can still be Succeeded."
+        explanation: "Correct. No pod is created, and a skipped task does not fail the workflow."
+      - id: c
+        text: "The task is Pending until the parameter changes."
+        explanation: "The expression is evaluated once, so the task does not wait."
+      - id: d
+        text: "The task is Succeeded because it did nothing."
+        explanation: "A task that did not run gets the result Skipped."
+    correct_option: b
+    explanation: "A false when expression gives the result Skipped, which is not an error."
+
+  - id: ats079-010-q07
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Interpret dependency results and fail-fast behavior"
+    source_readings:
+      - sections/section-010/module-01/course-02-conditional-tasks-failure-and-retries.md
+    prompt: "With the default failFast, a test task fails while a slow lint task is still running. What happens?"
+    options:
+      - id: a
+        text: "The controller stops the lint pod at once."
+        explanation: "Fail-fast stops scheduling new tasks. It does not stop running pods."
+      - id: b
+        text: "The controller creates no new pods for waiting tasks, and lint continues until it ends."
+        explanation: "Correct. Fail-fast limits new work only."
+      - id: c
+        text: "The controller rolls back what the finished tasks did."
+        explanation: "A DAG has no rollback."
+      - id: d
+        text: "The workflow keeps scheduling every eligible task."
+        explanation: "That is the behavior with failFast set to false."
+    correct_option: b
+    explanation: "Fail-fast stops new scheduling and leaves running pods and finished side effects alone."
+
+  - id: ats079-010-q08
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Evaluate outputs, retries and concurrency limits"
+    source_readings:
+      - sections/section-010/module-01/course-02-conditional-tasks-failure-and-retries.md
+    prompt: "A task uses `retryStrategy` with `limit: 3`. What does the controller do when the container exits with a non-zero code?"
+    options:
+      - id: a
+        text: "It restarts the same container in the same pod."
+        explanation: "Argo Workflows creates a new pod for each retry."
+      - id: b
+        text: "It creates a new pod for the retry and keeps the failed pod's result in the status."
+        explanation: "Correct. Each attempt is its own pod, so the work must be safe to repeat."
+      - id: c
+        text: "It marks the workflow Failed after the first error."
+        explanation: "The retry strategy exists to avoid that for temporary failures."
+      - id: d
+        text: "It skips the task."
+        explanation: "Skipped is the result of a false when expression."
+    correct_option: b
+    explanation: "A retry is a new pod, so a task that is retried must be safe to run twice."
+
+  - id: ats079-010-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Distinguish data references from explicit scheduling dependencies"
+    source_readings:
+      - sections/section-010/module-01/course-03-data-outputs-and-parallelism-limits.md
+    prompt: "A task uses `{{tasks.build.outputs.parameters.version}}` but does not list build in depends. What is the problem?"
+    options:
+      - id: a
+        text: "There is none, because the reference makes the task wait."
+        explanation: "A reference does not create a dependency."
+      - id: b
+        text: "The task can become eligible before the value exists."
+        explanation: "Correct. The data reference says which value is needed. depends says when the task may start."
+      - id: c
+        text: "The value is copied from the last run."
+        explanation: "Argo Workflows does not keep values between runs."
+      - id: d
+        text: "The reference is only valid for artifacts."
+        explanation: "Output parameters can be referenced the same way."
+    correct_option: b
+    explanation: "A consumer needs both the reference and the dependency."
+
+  - id: ats079-010-q10
+    type: single_choice
+    difficulty: advanced
+    learning_objective: "Distinguish data references from explicit scheduling dependencies"
+    source_readings:
+      - sections/section-010/module-01/course-03-data-outputs-and-parallelism-limits.md
+    prompt: "A producer task is skipped by a when expression, and a consumer refers to its output parameter. What follows?"
+    options:
+      - id: a
+        text: "The output is an empty string."
+        explanation: "No container ran, so no output exists."
+      - id: b
+        text: "The reference has no value to use, so the pipeline needs a rule for that case."
+        explanation: "Correct. A valid reference does not create an output from a task that did not run."
+      - id: c
+        text: "Argo Workflows runs the producer anyway."
+        explanation: "A skipped task is not run later."
+      - id: d
+        text: "The workflow always succeeds."
+        explanation: "The consumer can fail or run with no value."
+    correct_option: b
+    explanation: "The consumer must not depend on an output of a task that may be skipped, or must handle it."
+
+  - id: ats079-010-q11
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Evaluate outputs, retries and concurrency limits"
+    source_readings:
+      - sections/section-010/module-01/course-03-data-outputs-and-parallelism-limits.md
+    prompt: "A workflow has `spec.parallelism: 2` and five independent eligible tasks. What happens?"
+    options:
+      - id: a
+        text: "All five pods start and two of them are kept."
+        explanation: "The limit applies before the pods are created."
+      - id: b
+        text: "Two pods run, and the next task starts when one finishes."
+        explanation: "Correct. The dependencies are the same, but the number of running pods is limited."
+      - id: c
+        text: "The workflow fails because it is too wide."
+        explanation: "A limit delays tasks and does not fail the workflow."
+      - id: d
+        text: "Only two tasks ever run."
+        explanation: "The remaining tasks run later, in turn."
+    correct_option: b
+    explanation: "Parallelism limits concurrency and does not change the order that depends defines."
+
+  - id: ats079-010-q12
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Evaluate outputs, retries and concurrency limits"
+    source_readings:
+      - sections/section-010/module-01/course-01-dag-dependencies-conditional-tasks-and-parallel-work.md
+    prompt: "Why should package depend on both lint and test in a CI pipeline?"
+    options:
+      - id: a
+        text: "So the package task is faster."
+        explanation: "More dependencies make a task start later, not sooner."
+      - id: b
+        text: "So a package exists only for a change that passed both checks."
+        explanation: "Correct. The graph ties the artifact to the checks that were required."
+      - id: c
+        text: "Because Argo Workflows requires every task to have two parents."
+        explanation: "A task can have any number of parents."
+      - id: d
+        text: "Because lint and test produce the package."
+        explanation: "They are checks, not producers."
+    correct_option: b
+    explanation: "The dependencies make a package mean that the required checks succeeded."

@@ -1,0 +1,67 @@
+# yaml-language-server: $schema=https://cli.astrona.io/schema/lab-config.schema.json
+#
+# Build A CI Pipeline As A DAG (LAB). Graded against the live cluster. Built untested.
+apiVersion: astrona.io/v1
+metadata:
+  name: ats-079-lab-010-01
+  docs:
+    prerequisites: prerequisites.md
+    question: question.md
+    solution: solution.md
+
+runtime:
+  type: kind
+  kind:
+    image: kindest/node:v1.35.8
+    preloadImages:
+      - curlimages/curl:8.22.0
+      - alpine:3.23
+      - quay.io/argoproj/workflow-controller:v4.1.6
+      - quay.io/argoproj/argoexec:v4.1.6
+
+bootstrap:
+  manifests:
+    - name: lab-start
+      type: file
+      source: manifests/lab-start.yaml
+  init:
+    - name: install-argo-workflows
+      description: "Installs Argo Workflows v4.1.6 into starfleet (namespaced, without the Argo server)"
+      type: file
+      source: bootstrap/01-install-argo-workflows.sh
+  waitFor:
+    - resource: deploy/shuttle
+      namespace: starfleet
+
+testing:
+  init:
+    - name: solution
+      description: Reference solution applied by `astrona test`
+      type: file
+      source: solution/apply.sh
+
+validation:
+  scripts:
+    - name: template-structure
+      description: "The WorkflowTemplate ci-pipeline has the required DAG, parameter and conditions"
+      type: file
+      source: validation/validate-template-structure.sh
+      hint: "Check the entrypoint, the service account, and that lint and test depend only on checkout while package depends on both."
+    - name: run-succeeded
+      description: "ci-run-1 uses ci-pipeline and finished with Succeeded"
+      type: file
+      source: validation/validate-run-succeeded.sh
+      hint: "Create a Workflow with workflowTemplateRef name ci-pipeline and metadata name ci-run-1, then wait for it."
+    - name: parallel-timing
+      description: "lint and test overlapped in time and package started after both"
+      type: file
+      source: validation/validate-parallel-timing.sh
+      hint: "Both lint and test run sleep 10 and depend only on checkout."
+    - name: conditional-and-report
+      description: "publish was skipped and report ran"
+      type: file
+      source: validation/validate-conditional-and-report.sh
+      hint: "Use a when expression on the parameter publish, and depends package.Completed || lint.Failed || test.Failed for report."
+
+teardown:
+  keepCluster: false

@@ -1,6 +1,6 @@
 # Primary Authoring Sources
 
-[Official CNPA objectives](https://training.linuxfoundation.org/certification/certified-cloud-native-platform-engineering-associate-cnpa/) checked on 2026-10-11. The examination is multiple-choice. These primary references support author review; learner pages are self-contained. Adaptation paths are recorded per reading in AUTHORING.yaml. No runtime or command-output validation is claimed.
+[Official CNPA objectives](https://training.linuxfoundation.org/certification/certified-cloud-native-platform-engineering-associate-cnpa/) checked on 2026-10-11. The examination is multiple-choice. These primary references support author review; learner pages are self-contained. Adaptation paths are recorded per reading in AUTHORING.yaml. The labs and playgrounds are built untested, and no runtime or command-output validation is claimed.
 
 - [Platform capabilities and user outcomes](https://tag-app-delivery.cncf.io/whitepapers/platforms/)
 - [Platform maturity](https://tag-app-delivery.cncf.io/whitepapers/platform-eng-maturity-model/)
@@ -13,6 +13,11 @@
 - [Operator pattern](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/)
 - [Crossplane composition introduction](https://docs.crossplane.io/latest/get-started/get-started-with-composition/)
 - [Backstage catalog model](https://backstage.io/docs/features/software-catalog/descriptor-format/)
+- [Argo CD projects](https://argo-cd.readthedocs.io/en/stable/user-guide/projects/)
+- [Argo CD automated sync](https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/)
+- [Argo CD ApplicationSet](https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/)
+- [Argo CD application deletion](https://argo-cd.readthedocs.io/en/stable/user-guide/app_deletion/)
+- [Argo Workflows DAG](https://argo-workflows.readthedocs.io/en/latest/walk-through/dag/)
 - [GitOps principles](https://github.com/open-gitops/documents/blob/main/PRINCIPLES.md)
 - [Kubernetes security](https://kubernetes.io/docs/concepts/security/)
 - [Istio security](https://istio.io/latest/docs/concepts/security/)
