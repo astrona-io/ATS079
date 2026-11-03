@@ -357,3 +357,233 @@ questions:
         explanation: "The condition is on the Application."
     correct_option: b
     explanation: "The Application is the evidence."
+
+  - id: ats079-final-q16
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Explain what deployment means for CI"
+    source_readings:
+      - sections/section-010/module-02/course-01-pipeline-stages-and-what-each-one-proves.md
+    prompt: "Which statement about deployment is correct for a CI pipeline?"
+    options:
+      - id: a
+        text: "Deploying is a normal CI stage"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "Deploying starts from the artifact that the pipeline published and belongs to delivery"
+        explanation: "Correct. The CI pipeline ends with a published artifact. Delivery uses it."
+      - id: c
+        text: "Deploying must run before tests"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "Deploying replaces the package stage"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "The CI pipeline ends with a published artifact. Delivery uses it."
+
+  - id: ats079-final-q17
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Use volumeClaimTemplates"
+    source_readings:
+      - sections/section-010/module-02/course-02-sharing-files-between-tasks-with-a-workspace.md
+    prompt: "What does volumeClaimTemplates on a workflow do?"
+    options:
+      - id: a
+        text: "It creates a PersistentVolumeClaim for each run and deletes it when the run ends"
+        explanation: "Correct. Each run gets its own volume, so runs do not overwrite each other."
+      - id: b
+        text: "It shares one permanent volume between all runs"
+        explanation: "This does not match the behavior described in the reading."
+      - id: c
+        text: "It installs a storage class"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "It copies files to an object store"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: a
+    explanation: "Each run gets its own volume, so runs do not overwrite each other."
+
+  - id: ats079-final-q18
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Read logs of a restarted container"
+    source_readings:
+      - sections/section-020/module-02/course-01-signals-metrics-logs-events-and-traces.md
+    prompt: "A container restarted and you need the log of the run that failed. Which option do you add to kubectl logs?"
+    options:
+      - id: a
+        text: "--previous"
+        explanation: "Correct. --previous prints the log of the earlier container run."
+      - id: b
+        text: "--follow"
+        explanation: "This does not match the behavior described in the reading."
+      - id: c
+        text: "--all-containers"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "--timestamps"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: a
+    explanation: "--previous prints the log of the earlier container run."
+
+  - id: ats079-final-q19
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Use a duration"
+    source_readings:
+      - sections/section-020/module-02/course-02-symptoms-causes-and-actionable-alerts.md
+    prompt: "Why does an alert rule include a duration such as five minutes?"
+    options:
+      - id: a
+        text: "To make the alert louder"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "To avoid alerts for conditions that last only seconds"
+        explanation: "Correct. A short blip is not an incident."
+      - id: c
+        text: "To store the metric longer"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "To change the severity"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "A short blip is not an incident."
+
+  - id: ats079-final-q20
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Set rolling update fields"
+    source_readings:
+      - sections/section-030/module-02/course-01-recreate-and-rolling-update.md
+    prompt: "A Deployment has maxSurge 1 and maxUnavailable 0. What happens during an update?"
+    options:
+      - id: a
+        text: "Old pods stop first"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "A new pod starts and must be ready before an old pod stops"
+        explanation: "Correct. With maxUnavailable 0 the Deployment never goes below the wanted ready count."
+      - id: c
+        text: "All pods are replaced at once"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "The update is rejected"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "With maxUnavailable 0 the Deployment never goes below the wanted ready count."
+
+  - id: ats079-final-q21
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Know the cost"
+    source_readings:
+      - sections/section-030/module-02/course-02-blue-green-with-a-service-selector.md
+    prompt: "Which cost belongs to blue/green delivery?"
+    options:
+      - id: a
+        text: "It needs double capacity while both environments run"
+        explanation: "Correct. Both complete environments run during the change."
+      - id: b
+        text: "It cannot be reversed"
+        explanation: "This does not match the behavior described in the reading."
+      - id: c
+        text: "It needs a service mesh"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "It always causes downtime"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: a
+    explanation: "Both complete environments run during the change."
+
+  - id: ats079-final-q22
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Separate code and configuration"
+    source_readings:
+      - sections/section-040/module-02/course-01-repository-layout-and-rendering-with-kustomize.md
+    prompt: "Why keep application code and deployment configuration in different repositories?"
+    options:
+      - id: a
+        text: "Git cannot store YAML next to code"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "A pipeline that pushes to its own trigger repository can loop, and access can differ"
+        explanation: "Correct. Separate repositories avoid pipeline loops and allow stricter rules for production."
+      - id: c
+        text: "Kustomize only reads empty repositories"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "Argo CD cannot read code repositories"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "Separate repositories avoid pipeline loops and allow stricter rules for production."
+
+  - id: ats079-final-q23
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Failed hook"
+    source_readings:
+      - sections/section-040/module-02/course-02-sync-waves-and-hooks.md
+    prompt: "A PreSync hook Job fails. What does Argo CD do?"
+    options:
+      - id: a
+        text: "Applies the manifests anyway"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "Stops the sync, so the Deployment is not touched"
+        explanation: "Correct. A failed PreSync hook stops the sync."
+      - id: c
+        text: "Deletes the Application"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "Retries with a higher wave"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "A failed PreSync hook stops the sync."
+
+  - id: ats079-final-q24
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Pick a generator"
+    source_readings:
+      - sections/section-050/module-02/course-01-choosing-an-applicationset-generator.md
+    prompt: "Which generator creates a preview environment for each open pull request?"
+    options:
+      - id: a
+        text: "List"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "Cluster"
+        explanation: "This does not match the behavior described in the reading."
+      - id: c
+        text: "Pull request"
+        explanation: "Correct. The pull request generator ties an environment to an open request."
+      - id: d
+        text: "Git file"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: c
+    explanation: "The pull request generator ties an environment to an open request."
+
+  - id: ats079-final-q25
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Removed folder"
+    source_readings:
+      - sections/section-050/module-02/course-02-the-git-directory-generator-and-combined-generators.md
+    prompt: "A folder disappears from the repository. What does the ApplicationSet controller do?"
+    options:
+      - id: a
+        text: "Keeps the Application unchanged"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "Deletes the Application that it created for the folder"
+        explanation: "Correct. The parameter set disappears, so the Application is deleted."
+      - id: c
+        text: "Moves the Application to another project"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "Sets the Application to OutOfSync only"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "The parameter set disappears, so the Application is deleted."

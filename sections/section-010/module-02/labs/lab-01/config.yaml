@@ -1,0 +1,67 @@
+# yaml-language-server: $schema=https://cli.astrona.io/schema/lab-config.schema.json
+#
+# Build Once And Name The Artifact (LAB). Graded against the live cluster. Built untested.
+apiVersion: astrona.io/v1
+metadata:
+  name: ats-079-lab-010-02
+  docs:
+    prerequisites: prerequisites.md
+    question: question.md
+    solution: solution.md
+
+runtime:
+  type: kind
+  kind:
+    image: kindest/node:v1.35.8
+    preloadImages:
+      - curlimages/curl:8.22.0
+      - alpine:3.23
+      - quay.io/argoproj/workflow-controller:v4.1.6
+      - quay.io/argoproj/argoexec:v4.1.6
+
+bootstrap:
+  manifests:
+    - name: lab-start
+      type: file
+      source: manifests/lab-start.yaml
+  init:
+    - name: install-argo-workflows
+      description: "Installs Argo Workflows v4.1.6 into starfleet (namespaced, without the Argo server)"
+      type: file
+      source: bootstrap/01-install-argo-workflows.sh
+  waitFor:
+    - resource: deploy/shuttle
+      namespace: starfleet
+
+testing:
+  init:
+    - name: solution
+      description: Reference solution applied by `astrona test`
+      type: file
+      source: solution/apply.sh
+
+validation:
+  scripts:
+    - name: template-structure
+      description: "The WorkflowTemplate build-pipeline has the workspace, the parameters, the task order and the image output"
+      type: file
+      source: validation/validate-template-structure.sh
+      hint: "Check volumeClaimTemplates, both parameter defaults, that package depends on build and deliver on package, and the output parameter image."
+    - name: run-succeeded
+      description: "build-run-1 uses build-pipeline and finished with Succeeded"
+      type: file
+      source: validation/validate-run-succeeded.sh
+      hint: "Create a Workflow with workflowTemplateRef name build-pipeline and metadata name build-run-1, then wait for it."
+    - name: image-reference
+      description: "The package task published the output parameter image as scout:1.4.0-3f9c2ab"
+      type: file
+      source: validation/validate-image-reference.sh
+      hint: "Write scout:{{workflow.parameters.version}}-{{workflow.parameters.commit}} to a file and publish it with valueFrom.path."
+    - name: deliver-input
+      description: "deliver received the reference and the workspace carried app.bin"
+      type: file
+      source: validation/validate-deliver-input.sh
+      hint: "Pass {{tasks.package.outputs.parameters.image}} to deliver and mount the volume work at /work in build and package."
+
+teardown:
+  keepCluster: false

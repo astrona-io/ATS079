@@ -1,0 +1,91 @@
+# yaml-language-server: $schema=https://cli.astrona.io/schema/lab-config.schema.json
+#
+# One ApplicationSet From The Folders Of A Repository (LAB). Graded against the live cluster. Built untested.
+apiVersion: astrona.io/v1
+metadata:
+  name: ats-079-lab-050-02
+  docs:
+    prerequisites: prerequisites.md
+    question: question.md
+    solution: solution.md
+
+runtime:
+  type: kind
+  kind:
+    image: kindest/node:v1.35.8
+    preloadImages:
+      - curlimages/curl:8.22.0
+      - ghcr.io/stefanprodan/podinfo:6.15.0
+      - ghcr.io/stefanprodan/podinfo:6.14.0
+      - gitea/gitea:28.1.0-rootless
+      - quay.io/argoproj/argocd:v3.5.4
+      - public.ecr.aws/docker/library/redis:8.2.3-alpine
+  portForwards:
+    - name: argocd
+      description: "Argo CD API server and web page"
+      namespace: argocd
+      resource: svc/argocd-server
+      targetPort: 443
+      hostPort: 8080
+      scheme: https
+    - name: gitea
+      description: "The Git server (git over HTTP)"
+      namespace: gitea
+      resource: svc/gitea-http
+      targetPort: 3000
+      hostPort: 3000
+      scheme: http
+
+bootstrap:
+  manifests:
+    - name: lab-start
+      type: file
+      source: manifests/lab-start.yaml
+  init:
+    - name: install-gitea
+      description: "Starts the in-cluster Git server"
+      type: file
+      source: bootstrap/01-install-gitea.sh
+    - name: install-argocd
+      description: "Installs Argo CD 3.5.4 (non-HA, without Dex and notifications)"
+      type: file
+      source: bootstrap/02-install-argocd.sh
+    - name: seed
+      description: "Pushes the scout-deploy repository into Git and prepares the starting state"
+      type: file
+      source: bootstrap/03-seed.sh
+    - name: configure-argocd
+      description: "Gives Argo CD the repository credentials. No Application and no ApplicationSet exist yet"
+      type: file
+      source: bootstrap/04-configure-argocd.sh
+  waitFor:
+    - resource: deploy/shuttle
+      namespace: starfleet
+
+testing:
+  init:
+    - name: solution
+      description: Reference solution applied by `astrona test`
+      type: file
+      source: solution/apply.sh
+
+validation:
+  scripts:
+    - name: applicationset-shape
+      description: "The ApplicationSet scout-folders uses a Git directory generator that includes overlays/* and excludes overlays/preview"
+      type: file
+      source: validation/validate-applicationset-shape.sh
+      hint: "Use generators[].git with directories: a path overlays/* and a path overlays/preview with exclude: true, and goTemplate: true."
+    - name: generated-applications
+      description: "scout-staging and scout-production are owned by the ApplicationSet and delivered; scout-preview does not exist"
+      type: file
+      source: validation/validate-generated-applications.sh
+      hint: "Name the Application scout-{{ .path.basename }} and the namespace starfleet-{{ .path.basename }}. Ask for a refresh if nothing appears."
+    - name: self-healing
+      description: "The template turns on automated prune and selfHeal, and a hand edit of production is undone"
+      type: file
+      source: validation/validate-self-healing.sh
+      hint: "Put syncPolicy.automated with prune: true and selfHeal: true into the template."
+
+teardown:
+  keepCluster: false

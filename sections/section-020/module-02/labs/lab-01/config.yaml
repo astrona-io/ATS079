@@ -1,0 +1,60 @@
+# yaml-language-server: $schema=https://cli.astrona.io/schema/lab-config.schema.json
+#
+# Scope An Alert And Write The Detection Record (LAB). Graded against the live cluster. Built untested.
+apiVersion: astrona.io/v1
+metadata:
+  name: ats-079-lab-020-02
+  docs:
+    prerequisites: prerequisites.md
+    question: question.md
+    solution: solution.md
+
+runtime:
+  type: kind
+  kind:
+    image: kindest/node:v1.35.8
+    preloadImages:
+      - curlimages/curl:8.22.0
+      - ghcr.io/stefanprodan/podinfo:6.15.0
+
+bootstrap:
+  manifests:
+    - name: lab-start
+      type: file
+      source: manifests/lab-start.yaml
+  init:
+    - name: add-failing-workloads
+      description: "Waits for the healthy scout and then adds probe (exit code 3) and beacon (failing readiness probe)"
+      type: file
+      source: bootstrap/01-add-failing-workloads.sh
+  waitFor:
+    - resource: deploy/shuttle
+      namespace: starfleet
+
+testing:
+  init:
+    - name: solution
+      description: Reference solution applied by `astrona test`
+      type: file
+      source: solution/apply.sh
+
+validation:
+  scripts:
+    - name: signals-classified
+      description: "detection-record names the crashing, not-ready and healthy workload and the real exit code"
+      type: file
+      source: validation/validate-signals-classified.sh
+      hint: "Read kubectl get pods and the lastState of the probe container. The exit code is in the pod status."
+    - name: error-budget
+      description: "error-budget-minutes is 43.2 and severity and signal are set"
+      type: file
+      source: validation/validate-error-budget.sh
+      hint: "30 days are 43200 minutes. Multiply by 0.001 for an objective of 99.9 percent."
+    - name: nothing-changed
+      description: "The Deployments were not changed or deleted"
+      type: file
+      source: validation/validate-nothing-changed.sh
+      hint: "Only read evidence in this task. Do not edit, scale or delete the Deployments."
+
+teardown:
+  keepCluster: false

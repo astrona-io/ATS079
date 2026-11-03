@@ -35,6 +35,19 @@ This section explains what a GitOps setup is made of and where its limits are: t
     astrona submit -c .
     ```
 
+### 2. Repository Layout, Sync Mechanics And Secrets
+*   **Module Reader:** **[Module 2: Repository Layout, Sync Mechanics And Secrets](./module-02/course.md)**
+*   **Hands-on Playground:** `sections/section-040/module-02/playground`
+    ```bash
+    astrona run --git ssh://git@github.com/astrona-io/ATS079.git -c sections/section-040/module-02/playground
+    ```
+*   **Lab:** `sections/section-040/module-02/labs/lab-01` (UNTESTED)
+    ```bash
+    astrona run --git ssh://git@github.com/astrona-io/ATS079.git -c sections/section-040/module-02/labs/lab-01
+    astrona submit -c .
+    ```
+*   **Quiz:** 10 questions in `sections/section-040/module-02/quiz.yaml`.
+
 ### Section Capstone Challenge
 *   **Comprehensive Challenge:** Policy Boundary Capstone - `sections/section-040/capstone/labs/lab-01` (UNTESTED)
     ```bash

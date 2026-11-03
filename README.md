@@ -9,10 +9,15 @@ Developed reading explains mechanisms, responsible components, examples and limi
 | Section / module | Module | Teaching lessons |
 | --- | --- | --- |
 | 010 / 01 | DAG Dependencies, Conditional Tasks And Parallel Work | 3 |
+| 010 / 02 | Stages, Shared Workspaces And Image Identity | 4 |
 | 020 / 01 | Incident Roles, Evidence And Platform Recovery | 3 |
+| 020 / 02 | Detection: Signals, Alerts And Service Level Objectives | 4 |
 | 030 / 01 | Build Artifacts, Notifications And Observable Delivery Contracts | 3 |
+| 030 / 02 | Deployment Strategies And Progressive Delivery | 4 |
 | 040 / 01 | Managed Runtimes, Agents And Policy Boundaries | 3 |
+| 040 / 02 | Repository Layout, Sync Mechanics And Secrets | 4 |
 | 050 / 01 | Application Source, Destination And Project Boundaries | 3 |
+| 050 / 02 | ApplicationSet Generators, Project Policy And Promotion | 4 |
 
 ## Author Review
 

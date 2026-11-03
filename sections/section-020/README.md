@@ -35,6 +35,19 @@ This section teaches the first hour of a platform incident: who does what, which
     astrona submit -c .
     ```
 
+### 2. Detection: Signals, Alerts And Service Level Objectives
+*   **Module Reader:** **[Module 2: Detection: Signals, Alerts And Service Level Objectives](./module-02/course.md)**
+*   **Hands-on Playground:** `sections/section-020/module-02/playground`
+    ```bash
+    astrona run --git ssh://git@github.com/astrona-io/ATS079.git -c sections/section-020/module-02/playground
+    ```
+*   **Lab:** `sections/section-020/module-02/labs/lab-01` (UNTESTED)
+    ```bash
+    astrona run --git ssh://git@github.com/astrona-io/ATS079.git -c sections/section-020/module-02/labs/lab-01
+    astrona submit -c .
+    ```
+*   **Quiz:** 10 questions in `sections/section-020/module-02/quiz.yaml`.
+
 ### Section Capstone Challenge
 *   **Comprehensive Challenge:** Incident Response Capstone - `sections/section-020/capstone/labs/lab-01` (UNTESTED)
     ```bash

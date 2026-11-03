@@ -36,6 +36,19 @@ This section explains how continuous integration, continuous delivery and contin
     astrona submit -c .
     ```
 
+### 2. Deployment Strategies And Progressive Delivery
+*   **Module Reader:** **[Module 2: Deployment Strategies And Progressive Delivery](./module-02/course.md)**
+*   **Hands-on Playground:** `sections/section-030/module-02/playground`
+    ```bash
+    astrona run --git ssh://git@github.com/astrona-io/ATS079.git -c sections/section-030/module-02/playground
+    ```
+*   **Lab:** `sections/section-030/module-02/labs/lab-01` (UNTESTED)
+    ```bash
+    astrona run --git ssh://git@github.com/astrona-io/ATS079.git -c sections/section-030/module-02/labs/lab-01
+    astrona submit -c .
+    ```
+*   **Quiz:** 10 questions in `sections/section-030/module-02/quiz.yaml`.
+
 ### Section Capstone Challenge
 *   **Comprehensive Challenge:** Delivery Contract Capstone - `sections/section-030/capstone/labs/lab-01` (UNTESTED)
     ```bash

@@ -1,0 +1,242 @@
+# Knowledge check for module 02 of section 020. Listed in astrona.yaml as a `type: quiz` entry after the module summary.
+schema_version: 1
+kind: question_bank
+id: ats079-020-m02
+course_id: ATS079
+exam_code: CNPA
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: module
+  id: section-020/module-02
+  title: "Detection: Signals, Alerts And Service Level Objectives"
+questions:
+  - id: ats079-020-m02-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Name the four signals"
+    source_readings:
+      - sections/section-020/module-02/course-01-signals-metrics-logs-events-and-traces.md
+    prompt: "Which signal tells you what the platform did to an object, such as failing to pull an image?"
+    options:
+      - id: a
+        text: "Metric"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "Trace"
+        explanation: "This does not match the behavior described in the reading."
+      - id: c
+        text: "Event"
+        explanation: "Correct. Events are objects that components create when they change something or find a problem."
+      - id: d
+        text: "Alert"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: c
+    explanation: "Events are objects that components create when they change something or find a problem."
+
+  - id: ats079-020-m02-q02
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Read logs of a restarted container"
+    source_readings:
+      - sections/section-020/module-02/course-01-signals-metrics-logs-events-and-traces.md
+    prompt: "A container restarted and you need the log of the run that failed. Which option do you add to kubectl logs?"
+    options:
+      - id: a
+        text: "--previous"
+        explanation: "Correct. --previous prints the log of the earlier container run."
+      - id: b
+        text: "--follow"
+        explanation: "This does not match the behavior described in the reading."
+      - id: c
+        text: "--all-containers"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "--timestamps"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: a
+    explanation: "--previous prints the log of the earlier container run."
+
+  - id: ats079-020-m02-q03
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Read pod status"
+    source_readings:
+      - sections/section-020/module-02/course-01-signals-metrics-logs-events-and-traces.md
+    prompt: "A pod shows Running and 0/1 in the READY column. What does it mean?"
+    options:
+      - id: a
+        text: "The pod was not scheduled"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "The container is alive but fails its readiness probe"
+        explanation: "Correct. Running means the container started. The ready count shows the probe result."
+      - id: c
+        text: "The image cannot be pulled"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "The pod finished normally"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "Running means the container started. The ready count shows the probe result."
+
+  - id: ats079-020-m02-q04
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Alert on symptoms"
+    source_readings:
+      - sections/section-020/module-02/course-02-symptoms-causes-and-actionable-alerts.md
+    prompt: "Which alert is a symptom alert?"
+    options:
+      - id: a
+        text: "CPU above 90 percent on one node"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "12 percent of requests to scout failed in 5 minutes"
+        explanation: "Correct. A symptom is what users or calling services experience."
+      - id: c
+        text: "A disk is 70 percent full"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "A pod restarted once"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "A symptom is what users or calling services experience."
+
+  - id: ats079-020-m02-q05
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Judge an alert"
+    source_readings:
+      - sections/section-020/module-02/course-02-symptoms-causes-and-actionable-alerts.md
+    prompt: "An alert fires every day and the team closes it without action. What is the right step?"
+    options:
+      - id: a
+        text: "Raise its severity"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "Delete it or turn it into a dashboard panel"
+        explanation: "Correct. An alert that needs no action is noise and lowers trust in other alerts."
+      - id: c
+        text: "Page more people"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "Shorten its duration"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "An alert that needs no action is noise and lowers trust in other alerts."
+
+  - id: ats079-020-m02-q06
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Use a duration"
+    source_readings:
+      - sections/section-020/module-02/course-02-symptoms-causes-and-actionable-alerts.md
+    prompt: "Why does an alert rule include a duration such as five minutes?"
+    options:
+      - id: a
+        text: "To make the alert louder"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "To avoid alerts for conditions that last only seconds"
+        explanation: "Correct. A short blip is not an incident."
+      - id: c
+        text: "To store the metric longer"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "To change the severity"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "A short blip is not an incident."
+
+  - id: ats079-020-m02-q07
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Define an error budget"
+    source_readings:
+      - sections/section-020/module-02/course-03-indicators-objectives-and-error-budgets.md
+    prompt: "An objective is 99.9 percent. What is the error budget?"
+    options:
+      - id: a
+        text: "99.9 percent"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "0.1 percent"
+        explanation: "Correct. The budget is 100 percent minus the objective."
+      - id: c
+        text: "1 percent"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "0.01 percent"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "The budget is 100 percent minus the objective."
+
+  - id: ats079-020-m02-q08
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Calculate a budget"
+    source_readings:
+      - sections/section-020/module-02/course-03-indicators-objectives-and-error-budgets.md
+    prompt: "How many minutes of full downtime does 99.9 percent allow over 30 days?"
+    options:
+      - id: a
+        text: "4.32"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "43.2"
+        explanation: "Correct. 0.1 percent of 43,200 minutes is 43.2 minutes."
+      - id: c
+        text: "432"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "7.2"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "0.1 percent of 43,200 minutes is 43.2 minutes."
+
+  - id: ats079-020-m02-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Classify a failure"
+    source_readings:
+      - sections/section-020/module-02/course-04-scoping-an-incident-from-the-first-alert.md
+    prompt: "A pod has the status CrashLoopBackOff. What is the next evidence to read?"
+    options:
+      - id: a
+        text: "The scheduler configuration"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "The last exit code and the previous log"
+        explanation: "Correct. The container starts and exits, so its exit code and previous log explain it."
+      - id: c
+        text: "The node image"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "The Service type"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "The container starts and exits, so its exit code and previous log explain it."
+
+  - id: ats079-020-m02-q10
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Interpret an exit code"
+    source_readings:
+      - sections/section-020/module-02/course-04-scoping-an-incident-from-the-first-alert.md
+    prompt: "A container ended with exit code 137. What is the usual reason?"
+    options:
+      - id: a
+        text: "A normal exit"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "The process was killed with SIGKILL, often by an out-of-memory kill"
+        explanation: "Correct. Code 137 is 128 plus signal 9."
+      - id: c
+        text: "A missing ConfigMap"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "A failed readiness probe"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "Code 137 is 128 plus signal 9."

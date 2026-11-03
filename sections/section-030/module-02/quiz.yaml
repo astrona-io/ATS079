@@ -1,0 +1,242 @@
+# Knowledge check for module 02 of section 030. Listed in astrona.yaml as a `type: quiz` entry after the module summary.
+schema_version: 1
+kind: question_bank
+id: ats079-030-m02
+course_id: ATS079
+exam_code: CNPA
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: module
+  id: section-030/module-02
+  title: "Deployment Strategies And Progressive Delivery"
+questions:
+  - id: ats079-030-m02-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Compare strategies"
+    source_readings:
+      - sections/section-030/module-02/course-01-recreate-and-rolling-update.md
+    prompt: "Which strategy causes a short period with no ready pod by design?"
+    options:
+      - id: a
+        text: "RollingUpdate"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "Recreate"
+        explanation: "Correct. Recreate stops all old pods before it starts new ones."
+      - id: c
+        text: "Blue/green"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "Canary"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "Recreate stops all old pods before it starts new ones."
+
+  - id: ats079-030-m02-q02
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Set rolling update fields"
+    source_readings:
+      - sections/section-030/module-02/course-01-recreate-and-rolling-update.md
+    prompt: "A Deployment has maxSurge 1 and maxUnavailable 0. What happens during an update?"
+    options:
+      - id: a
+        text: "Old pods stop first"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "A new pod starts and must be ready before an old pod stops"
+        explanation: "Correct. With maxUnavailable 0 the Deployment never goes below the wanted ready count."
+      - id: c
+        text: "All pods are replaced at once"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "The update is rejected"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "With maxUnavailable 0 the Deployment never goes below the wanted ready count."
+
+  - id: ats079-030-m02-q03
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Know why readiness matters"
+    source_readings:
+      - sections/section-030/module-02/course-01-recreate-and-rolling-update.md
+    prompt: "What happens in a rolling update when the Deployment has no readiness probe?"
+    options:
+      - id: a
+        text: "The update waits forever"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "A started container counts as ready, so a broken version can replace healthy pods"
+        explanation: "Correct. Readiness decides when a new pod may take over."
+      - id: c
+        text: "Kubernetes rejects the Deployment"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "Only the first pod updates"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "Readiness decides when a new pod may take over."
+
+  - id: ats079-030-m02-q04
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Explain blue/green"
+    source_readings:
+      - sections/section-030/module-02/course-02-blue-green-with-a-service-selector.md
+    prompt: "What decides which pods receive traffic in the blue/green pattern of this module?"
+    options:
+      - id: a
+        text: "The image tag"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "The Service selector"
+        explanation: "Correct. The Service sends traffic to pods whose labels match its selector."
+      - id: c
+        text: "The node name"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "The Deployment name"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "The Service sends traffic to pods whose labels match its selector."
+
+  - id: ats079-030-m02-q05
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Switch traffic"
+    source_readings:
+      - sections/section-030/module-02/course-02-blue-green-with-a-service-selector.md
+    prompt: "What is the fastest way to go back from green to blue?"
+    options:
+      - id: a
+        text: "Rebuild the image"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "Patch the Service selector back to blue"
+        explanation: "Correct. Changing the selector needs no restart."
+      - id: c
+        text: "Delete the green Deployment and recreate it"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "Scale blue to zero"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "Changing the selector needs no restart."
+
+  - id: ats079-030-m02-q06
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Know the cost"
+    source_readings:
+      - sections/section-030/module-02/course-02-blue-green-with-a-service-selector.md
+    prompt: "Which cost belongs to blue/green delivery?"
+    options:
+      - id: a
+        text: "It needs double capacity while both environments run"
+        explanation: "Correct. Both complete environments run during the change."
+      - id: b
+        text: "It cannot be reversed"
+        explanation: "This does not match the behavior described in the reading."
+      - id: c
+        text: "It needs a service mesh"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "It always causes downtime"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: a
+    explanation: "Both complete environments run during the change."
+
+  - id: ats079-030-m02-q07
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Build a canary"
+    source_readings:
+      - sections/section-030/module-02/course-03-canary-delivery-and-progressive-tools.md
+    prompt: "With plain Kubernetes, a canary of 1 pod next to 3 stable pods behind one Service gets roughly what share?"
+    options:
+      - id: a
+        text: "One quarter of the requests, not exactly"
+        explanation: "Correct. The share follows the pod ratio, and it is only approximate."
+      - id: b
+        text: "Exactly 1 percent"
+        explanation: "This does not match the behavior described in the reading."
+      - id: c
+        text: "Exactly one half"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "All requests"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: a
+    explanation: "The share follows the pod ratio, and it is only approximate."
+
+  - id: ats079-030-m02-q08
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Know the tools"
+    source_readings:
+      - sections/section-030/module-02/course-03-canary-delivery-and-progressive-tools.md
+    prompt: "Which feature gives an exact traffic percentage independent of the pod count?"
+    options:
+      - id: a
+        text: "A replica count"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "A weighted route in a service mesh or an ingress controller"
+        explanation: "Correct. Weighted routing splits traffic by rule, not by pod count."
+      - id: c
+        text: "A readiness probe"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "A ConfigMap"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "Weighted routing splits traffic by rule, not by pod count."
+
+  - id: ats079-030-m02-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Verify a rollout"
+    source_readings:
+      - sections/section-030/module-02/course-04-verifying-and-reversing-a-release.md
+    prompt: "Why is kubectl rollout status alone not enough to verify a release?"
+    options:
+      - id: a
+        text: "It only shows pod readiness, not what users experience"
+        explanation: "Correct. Add a service check and metrics."
+      - id: b
+        text: "It changes the Deployment"
+        explanation: "This does not match the behavior described in the reading."
+      - id: c
+        text: "It needs the Service type LoadBalancer"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "It cannot show failures"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: a
+    explanation: "Add a service check and metrics."
+
+  - id: ats079-030-m02-q10
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Roll back"
+    source_readings:
+      - sections/section-030/module-02/course-04-verifying-and-reversing-a-release.md
+    prompt: "What does kubectl rollout undo restore?"
+    options:
+      - id: a
+        text: "The pod template of the previous revision"
+        explanation: "Correct. A rollback changes only the pod template."
+      - id: b
+        text: "Database changes"
+        explanation: "This does not match the behavior described in the reading."
+      - id: c
+        text: "All other objects"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "The Service selector"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: a
+    explanation: "A rollback changes only the pod template."

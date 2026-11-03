@@ -1,0 +1,242 @@
+# Knowledge check for module 02 of section 010. Listed in astrona.yaml as a `type: quiz` entry after the module summary.
+schema_version: 1
+kind: question_bank
+id: ats079-010-m02
+course_id: ATS079
+exam_code: CNPA
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: module
+  id: section-010/module-02
+  title: "Stages, Shared Workspaces And Image Identity"
+questions:
+  - id: ats079-010-m02-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Name the stages of a CI pipeline"
+    source_readings:
+      - sections/section-010/module-02/course-01-pipeline-stages-and-what-each-one-proves.md
+    prompt: "Which order of stages follows the cheap-to-expensive rule?"
+    options:
+      - id: a
+        text: "Test, lint, checkout, build"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "Checkout, lint, build, test"
+        explanation: "Correct. Fetching the source and linting are fast, so they run before the build and the tests."
+      - id: c
+        text: "Publish, build, lint, test"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "Build, publish, checkout, lint"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "Fetching the source and linting are fast, so they run before the build and the tests."
+
+  - id: ats079-010-m02-q02
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Explain what deployment means for CI"
+    source_readings:
+      - sections/section-010/module-02/course-01-pipeline-stages-and-what-each-one-proves.md
+    prompt: "Which statement about deployment is correct for a CI pipeline?"
+    options:
+      - id: a
+        text: "Deploying is a normal CI stage"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "Deploying starts from the artifact that the pipeline published and belongs to delivery"
+        explanation: "Correct. The CI pipeline ends with a published artifact. Delivery uses it."
+      - id: c
+        text: "Deploying must run before tests"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "Deploying replaces the package stage"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "The CI pipeline ends with a published artifact. Delivery uses it."
+
+  - id: ats079-010-m02-q03
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Use steps templates"
+    source_readings:
+      - sections/section-010/module-02/course-01-pipeline-stages-and-what-each-one-proves.md
+    prompt: "In an Argo Workflows steps template, two entries are in the same inner list. What happens?"
+    options:
+      - id: a
+        text: "They run in parallel"
+        explanation: "Correct. Entries in one group start together, and groups run in order."
+      - id: b
+        text: "They run one after the other in list order"
+        explanation: "This does not match the behavior described in the reading."
+      - id: c
+        text: "The second one is skipped"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "The workflow is invalid"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: a
+    explanation: "Entries in one group start together, and groups run in order."
+
+  - id: ats079-010-m02-q04
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Place a stage"
+    source_readings:
+      - sections/section-010/module-02/course-01-pipeline-stages-and-what-each-one-proves.md
+    prompt: "A test stage fails because the registry was unreachable. Which handling fits?"
+    options:
+      - id: a
+        text: "Delete the test stage"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "Use a retry strategy for the temporary network failure"
+        explanation: "Correct. A temporary fault belongs in a retry strategy, so a red stage keeps meaning a real failure."
+      - id: c
+        text: "Ignore all failures of the stage"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "Move the stage after publish"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "A temporary fault belongs in a retry strategy, so a red stage keeps meaning a real failure."
+
+  - id: ats079-010-m02-q05
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Choose between parameters and workspaces"
+    source_readings:
+      - sections/section-010/module-02/course-02-sharing-files-between-tasks-with-a-workspace.md
+    prompt: "What is a good use of an output parameter?"
+    options:
+      - id: a
+        text: "Passing a compiled binary of 200 MB"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "Passing a version number or image reference"
+        explanation: "Correct. Parameters hold short strings. Files go on a workspace."
+      - id: c
+        text: "Passing the whole source tree"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "Passing a test report of many files"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "Parameters hold short strings. Files go on a workspace."
+
+  - id: ats079-010-m02-q06
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Use volumeClaimTemplates"
+    source_readings:
+      - sections/section-010/module-02/course-02-sharing-files-between-tasks-with-a-workspace.md
+    prompt: "What does volumeClaimTemplates on a workflow do?"
+    options:
+      - id: a
+        text: "It creates a PersistentVolumeClaim for each run and deletes it when the run ends"
+        explanation: "Correct. Each run gets its own volume, so runs do not overwrite each other."
+      - id: b
+        text: "It shares one permanent volume between all runs"
+        explanation: "This does not match the behavior described in the reading."
+      - id: c
+        text: "It installs a storage class"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "It copies files to an object store"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: a
+    explanation: "Each run gets its own volume, so runs do not overwrite each other."
+
+  - id: ats079-010-m02-q07
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Order output consumers"
+    source_readings:
+      - sections/section-010/module-02/course-02-sharing-files-between-tasks-with-a-workspace.md
+    prompt: "A task uses the output parameter of another task but has no depends entry for it. What is the risk?"
+    options:
+      - id: a
+        text: "None, the reference makes it wait"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "It can become eligible before the value exists"
+        explanation: "Correct. A reference does not create a scheduling dependency."
+      - id: c
+        text: "The workflow becomes cyclic"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "The value is encrypted"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "A reference does not create a scheduling dependency."
+
+  - id: ats079-010-m02-q08
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Distinguish tags and digests"
+    source_readings:
+      - sections/section-010/module-02/course-03-image-tags-digests-and-artifact-identity.md
+    prompt: "Which statement about an image tag is correct?"
+    options:
+      - id: a
+        text: "A tag is calculated from the image content"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "The owner of the repository can move a tag to a different image"
+        explanation: "Correct. A tag is a movable label. A digest is calculated from the content."
+      - id: c
+        text: "A tag always names the same bytes"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "A tag cannot be reused"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "A tag is a movable label. A digest is calculated from the content."
+
+  - id: ats079-010-m02-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Choose a stable reference"
+    source_readings:
+      - sections/section-010/module-02/course-03-image-tags-digests-and-artifact-identity.md
+    prompt: "Which reference names exactly one image build?"
+    options:
+      - id: a
+        text: "scout:latest"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "scout:1.4.0 when the tag can be pushed again"
+        explanation: "This does not match the behavior described in the reading."
+      - id: c
+        text: "scout@sha256:<digest>"
+        explanation: "Correct. A digest is a hash of the manifest, so it always names the same bytes."
+      - id: d
+        text: "scout:stable"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: c
+    explanation: "A digest is a hash of the manifest, so it always names the same bytes."
+
+  - id: ats079-010-m02-q10
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Apply build-once"
+    source_readings:
+      - sections/section-010/module-02/course-03-image-tags-digests-and-artifact-identity.md
+    prompt: "Why does a pipeline build once per commit and promote the same image?"
+    options:
+      - id: a
+        text: "Because rebuilds are not possible"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "Because each environment then runs the image that was tested"
+        explanation: "Correct. A rebuild for production can produce a different image that no test ever ran."
+      - id: c
+        text: "Because registries accept one push per day"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "Because tags cannot be used twice"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "A rebuild for production can produce a different image that no test ever ran."

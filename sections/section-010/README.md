@@ -36,6 +36,19 @@ This section teaches you to read and write a continuous integration (CI) pipelin
     astrona submit -c .
     ```
 
+### 2. Stages, Shared Workspaces And Image Identity
+*   **Module Reader:** **[Module 2: Stages, Shared Workspaces And Image Identity](./module-02/course.md)**
+*   **Hands-on Playground:** `sections/section-010/module-02/playground`
+    ```bash
+    astrona run --git ssh://git@github.com/astrona-io/ATS079.git -c sections/section-010/module-02/playground
+    ```
+*   **Lab:** `sections/section-010/module-02/labs/lab-01` (UNTESTED)
+    ```bash
+    astrona run --git ssh://git@github.com/astrona-io/ATS079.git -c sections/section-010/module-02/labs/lab-01
+    astrona submit -c .
+    ```
+*   **Quiz:** 10 questions in `sections/section-010/module-02/quiz.yaml`.
+
 ### Section Capstone Challenge
 *   **Comprehensive Challenge:** CI Pipelines Capstone - `sections/section-010/capstone/labs/lab-01` (UNTESTED)
     ```bash

@@ -35,6 +35,19 @@ This section explains how Argo CD describes one environment and keeps many envir
     astrona submit -c .
     ```
 
+### 2. ApplicationSet Generators, Project Policy And Promotion
+*   **Module Reader:** **[Module 2: ApplicationSet Generators, Project Policy And Promotion](./module-02/course.md)**
+*   **Hands-on Playground:** `sections/section-050/module-02/playground`
+    ```bash
+    astrona run --git ssh://git@github.com/astrona-io/ATS079.git -c sections/section-050/module-02/playground
+    ```
+*   **Lab:** `sections/section-050/module-02/labs/lab-01` (UNTESTED)
+    ```bash
+    astrona run --git ssh://git@github.com/astrona-io/ATS079.git -c sections/section-050/module-02/labs/lab-01
+    astrona submit -c .
+    ```
+*   **Quiz:** 10 questions in `sections/section-050/module-02/quiz.yaml`.
+
 ### Section Capstone Challenge
 *   **Comprehensive Challenge:** Environment Generation Capstone - `sections/section-050/capstone/labs/lab-01` (UNTESTED)
     ```bash

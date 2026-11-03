@@ -1,0 +1,61 @@
+# yaml-language-server: $schema=https://cli.astrona.io/schema/lab-config.schema.json
+#
+# Switch Blue/Green Traffic And Record The Release (LAB). Graded against the live cluster. Built untested.
+apiVersion: astrona.io/v1
+metadata:
+  name: ats-079-lab-030-02
+  docs:
+    prerequisites: prerequisites.md
+    question: question.md
+    solution: solution.md
+
+runtime:
+  type: kind
+  kind:
+    image: kindest/node:v1.35.8
+    preloadImages:
+      - curlimages/curl:8.22.0
+      - ghcr.io/stefanprodan/podinfo:6.15.0
+      - ghcr.io/stefanprodan/podinfo:6.14.0
+
+bootstrap:
+  manifests:
+    - name: lab-start
+      type: file
+      source: manifests/lab-start.yaml
+  init:
+    - name: wait-for-environments
+      description: "Waits until scout-blue and scout-green are rolled out"
+      type: file
+      source: bootstrap/01-wait-for-environments.sh
+  waitFor:
+    - resource: deploy/shuttle
+      namespace: starfleet
+
+testing:
+  init:
+    - name: solution
+      description: Reference solution applied by `astrona test`
+      type: file
+      source: solution/apply.sh
+
+validation:
+  scripts:
+    - name: traffic-switched
+      description: "The Service selects green, both endpoints are green pods and a request returns 6.15.0"
+      type: file
+      source: validation/validate-traffic-switched.sh
+      hint: "Patch the selector of the Service scout so that version is green. Check kubectl get endpoints scout."
+    - name: blue-kept
+      description: "scout-blue still runs two ready replicas with maxSurge 1 and maxUnavailable 0"
+      type: file
+      source: validation/validate-blue-kept.sh
+      hint: "Do not delete or scale scout-blue. Patch only its strategy fields."
+    - name: release-record
+      description: "release-record has strategy, live, previous and the rollback command"
+      type: file
+      source: validation/validate-release-record.sh
+      hint: "The rollback value is a kubectl patch command for the Service with version blue in the selector."
+
+teardown:
+  keepCluster: false

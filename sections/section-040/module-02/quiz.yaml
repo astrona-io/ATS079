@@ -1,0 +1,242 @@
+# Knowledge check for module 02 of section 040. Listed in astrona.yaml as a `type: quiz` entry after the module summary.
+schema_version: 1
+kind: question_bank
+id: ats079-040-m02
+course_id: ATS079
+exam_code: CNPA
+status: draft
+provenance: Original practice material written for this course; not official exam questions.
+scope:
+  type: module
+  id: section-040/module-02
+  title: "Repository Layout, Sync Mechanics And Secrets"
+questions:
+  - id: ats079-040-m02-q01
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Describe overlays"
+    source_readings:
+      - sections/section-040/module-02/course-01-repository-layout-and-rendering-with-kustomize.md
+    prompt: "What does a Kustomize overlay hold?"
+    options:
+      - id: a
+        text: "Only the changes on top of the base"
+        explanation: "Correct. An overlay states what differs from the base."
+      - id: b
+        text: "A full copy of the base per environment"
+        explanation: "This does not match the behavior described in the reading."
+      - id: c
+        text: "The application source code"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "The cluster credentials"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: a
+    explanation: "An overlay states what differs from the base."
+
+  - id: ats079-040-m02-q02
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Separate code and configuration"
+    source_readings:
+      - sections/section-040/module-02/course-01-repository-layout-and-rendering-with-kustomize.md
+    prompt: "Why keep application code and deployment configuration in different repositories?"
+    options:
+      - id: a
+        text: "Git cannot store YAML next to code"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "A pipeline that pushes to its own trigger repository can loop, and access can differ"
+        explanation: "Correct. Separate repositories avoid pipeline loops and allow stricter rules for production."
+      - id: c
+        text: "Kustomize only reads empty repositories"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "Argo CD cannot read code repositories"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "Separate repositories avoid pipeline loops and allow stricter rules for production."
+
+  - id: ats079-040-m02-q03
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Render locally"
+    source_readings:
+      - sections/section-040/module-02/course-01-repository-layout-and-rendering-with-kustomize.md
+    prompt: "Which command prints what Kustomize builds for an overlay without touching the cluster?"
+    options:
+      - id: a
+        text: "kubectl apply --dry-run=none"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "kubectl kustomize overlays/staging"
+        explanation: "Correct. kubectl kustomize renders the manifests only."
+      - id: c
+        text: "kubectl get kustomization"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "kubectl rollout status"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "kubectl kustomize renders the manifests only."
+
+  - id: ats079-040-m02-q04
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Order a sync"
+    source_readings:
+      - sections/section-040/module-02/course-02-sync-waves-and-hooks.md
+    prompt: "Which annotation sets the order in which Argo CD applies objects?"
+    options:
+      - id: a
+        text: "argocd.argoproj.io/sync-wave"
+        explanation: "Correct. Lower sync wave numbers are applied first."
+      - id: b
+        text: "argocd.argoproj.io/order"
+        explanation: "This does not match the behavior described in the reading."
+      - id: c
+        text: "argocd.argoproj.io/priority"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "argocd.argoproj.io/first"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: a
+    explanation: "Lower sync wave numbers are applied first."
+
+  - id: ats079-040-m02-q05
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Pick a hook"
+    source_readings:
+      - sections/section-040/module-02/course-02-sync-waves-and-hooks.md
+    prompt: "A database migration must finish before the new version starts. Which hook fits?"
+    options:
+      - id: a
+        text: "PostSync"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "SyncFail"
+        explanation: "This does not match the behavior described in the reading."
+      - id: c
+        text: "PreSync"
+        explanation: "Correct. A PreSync hook runs before the manifests are applied."
+      - id: d
+        text: "Skip"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: c
+    explanation: "A PreSync hook runs before the manifests are applied."
+
+  - id: ats079-040-m02-q06
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Failed hook"
+    source_readings:
+      - sections/section-040/module-02/course-02-sync-waves-and-hooks.md
+    prompt: "A PreSync hook Job fails. What does Argo CD do?"
+    options:
+      - id: a
+        text: "Applies the manifests anyway"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "Stops the sync, so the Deployment is not touched"
+        explanation: "Correct. A failed PreSync hook stops the sync."
+      - id: c
+        text: "Deletes the Application"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "Retries with a higher wave"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "A failed PreSync hook stops the sync."
+
+  - id: ats079-040-m02-q07
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Hook cleanup"
+    source_readings:
+      - sections/section-040/module-02/course-02-sync-waves-and-hooks.md
+    prompt: "Why set a hook-delete-policy of BeforeHookCreation on a hook Job?"
+    options:
+      - id: a
+        text: "To run the hook twice"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "To remove the old Job so the next sync can create it again"
+        explanation: "Correct. Without a policy the old Job remains and the next sync fails on the name."
+      - id: c
+        text: "To hide the Job from the diff"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "To skip the health check"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "Without a policy the old Job remains and the next sync fails on the name."
+
+  - id: ats079-040-m02-q08
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Read two statuses"
+    source_readings:
+      - sections/section-040/module-02/course-03-health-diff-and-sync-options.md
+    prompt: "An Application is Synced and Degraded. What does it mean?"
+    options:
+      - id: a
+        text: "Git was applied exactly, but the objects do not work"
+        explanation: "Correct. Sync status compares Git with the cluster. Health judges whether the objects work."
+      - id: b
+        text: "The cluster differs from Git"
+        explanation: "This does not match the behavior described in the reading."
+      - id: c
+        text: "The repository is unreachable"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "The sync has not started"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: a
+    explanation: "Sync status compares Git with the cluster. Health judges whether the objects work."
+
+  - id: ats079-040-m02-q09
+    type: single_choice
+    difficulty: intermediate
+    learning_objective: "Ignore a field"
+    source_readings:
+      - sections/section-040/module-02/course-03-health-diff-and-sync-options.md
+    prompt: "A HorizontalPodAutoscaler changes the replica count and Argo CD shows OutOfSync. What is the fitting setting?"
+    options:
+      - id: a
+        text: "Prune=false"
+        explanation: "This does not match the behavior described in the reading."
+      - id: b
+        text: "ignoreDifferences for /spec/replicas"
+        explanation: "Correct. ignoreDifferences skips fields that another controller owns."
+      - id: c
+        text: "Replace=true"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "A PostSync hook"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: b
+    explanation: "ignoreDifferences skips fields that another controller owns."
+
+  - id: ats079-040-m02-q10
+    type: single_choice
+    difficulty: beginner
+    learning_objective: "Encoding versus encryption"
+    source_readings:
+      - sections/section-040/module-02/course-04-secrets-in-a-gitops-repository.md
+    prompt: "Why is a Kubernetes Secret in a Git repository unsafe?"
+    options:
+      - id: a
+        text: "Base64 is an encoding that anyone can decode"
+        explanation: "Correct. Base64 is not encryption, and Git history keeps old values."
+      - id: b
+        text: "Git cannot store small files"
+        explanation: "This does not match the behavior described in the reading."
+      - id: c
+        text: "Secrets are deleted on push"
+        explanation: "This does not match the behavior described in the reading."
+      - id: d
+        text: "Argo CD removes the values"
+        explanation: "This does not match the behavior described in the reading."
+    correct_option: a
+    explanation: "Base64 is not encryption, and Git history keeps old values."

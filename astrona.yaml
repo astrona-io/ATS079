@@ -78,6 +78,46 @@ modules:
         title: "Summary"
         path: sections/section-010/module-01/course-04-summary.md
       - type: reading
+        title: "Stages, Shared Workspaces And Image Identity"
+        path: sections/section-010/module-02/course.md
+      - type: reading
+        title: "Pipeline Stages And What Each One Proves"
+        path: sections/section-010/module-02/course-01-pipeline-stages-and-what-each-one-proves.md
+      - type: reading
+        title: "Sharing Files Between Tasks With A Workspace"
+        path: sections/section-010/module-02/course-02-sharing-files-between-tasks-with-a-workspace.md
+      - type: reading
+        title: "Image Tags, Digests And Artifact Identity"
+        path: sections/section-010/module-02/course-03-image-tags-digests-and-artifact-identity.md
+      - type: reading
+        title: "Repeatable Builds, Caching And Pinned Inputs"
+        path: sections/section-010/module-02/course-04-repeatable-builds-caching-and-pinned-inputs.md
+      - type: reading
+        title: "Question"
+        path: sections/section-010/module-02/labs/lab-01/question.md
+      - type: lab
+        title: "Assemble And Publish An Image Through A Pipeline Lab"
+        path: sections/section-010/module-02/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: ci-pipelines
+        task_kind: build
+        tags: [argo-workflows, artifacts, image-tag, workspace]
+        learning_goals:
+          - Share files between pipeline tasks with a workspace
+          - Name a built image by version and commit
+          - Pass the image reference to a delivery task
+        resources:
+          - name: "Argo Workflows workspaces"
+            url: https://argo-workflows.readthedocs.io/en/latest/walk-through/volumes/
+      - type: reading
+        title: "Summary"
+        path: sections/section-010/module-02/course-05-summary.md
+      - type: quiz
+        title: "Knowledge Check: Stages, Shared Workspaces And Image Identity"
+        path: sections/section-010/module-02/quiz.yaml
+        pass_score: 70
+      - type: reading
         title: "Question"
         path: sections/section-010/capstone/labs/lab-01/question.md
       - type: lab
@@ -144,6 +184,46 @@ modules:
       - type: reading
         title: "Summary"
         path: sections/section-020/module-01/course-04-summary.md
+      - type: reading
+        title: "Detection: Signals, Alerts And Service Level Objectives"
+        path: sections/section-020/module-02/course.md
+      - type: reading
+        title: "Signals: Metrics, Logs, Events And Traces"
+        path: sections/section-020/module-02/course-01-signals-metrics-logs-events-and-traces.md
+      - type: reading
+        title: "Symptoms, Causes And Actionable Alerts"
+        path: sections/section-020/module-02/course-02-symptoms-causes-and-actionable-alerts.md
+      - type: reading
+        title: "Indicators, Objectives And Error Budgets"
+        path: sections/section-020/module-02/course-03-indicators-objectives-and-error-budgets.md
+      - type: reading
+        title: "Scoping An Incident From The First Alert"
+        path: sections/section-020/module-02/course-04-scoping-an-incident-from-the-first-alert.md
+      - type: reading
+        title: "Question"
+        path: sections/section-020/module-02/labs/lab-01/question.md
+      - type: lab
+        title: "Classify Failing Workloads Into An Incident Record Lab"
+        path: sections/section-020/module-02/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: incident-response
+        task_kind: investigate
+        tags: [kubectl, detection, slo, incident]
+        learning_goals:
+          - Tell crashing from not-ready workloads using pod evidence
+          - Compute an error budget in minutes
+          - Record severity and signal without changing the workloads
+        resources:
+          - name: "Kubernetes debugging pods"
+            url: https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/
+      - type: reading
+        title: "Summary"
+        path: sections/section-020/module-02/course-05-summary.md
+      - type: quiz
+        title: "Knowledge Check: Detection: Signals, Alerts And Service Level Objectives"
+        path: sections/section-020/module-02/quiz.yaml
+        pass_score: 70
       - type: reading
         title: "Question"
         path: sections/section-020/capstone/labs/lab-01/question.md
@@ -212,6 +292,46 @@ modules:
         title: "Summary"
         path: sections/section-030/module-01/course-04-summary.md
       - type: reading
+        title: "Deployment Strategies And Progressive Delivery"
+        path: sections/section-030/module-02/course.md
+      - type: reading
+        title: "Recreate And Rolling Update"
+        path: sections/section-030/module-02/course-01-recreate-and-rolling-update.md
+      - type: reading
+        title: "Blue/Green With A Service Selector"
+        path: sections/section-030/module-02/course-02-blue-green-with-a-service-selector.md
+      - type: reading
+        title: "Canary Delivery And Progressive Tools"
+        path: sections/section-030/module-02/course-03-canary-delivery-and-progressive-tools.md
+      - type: reading
+        title: "Verifying And Reversing A Release"
+        path: sections/section-030/module-02/course-04-verifying-and-reversing-a-release.md
+      - type: reading
+        title: "Question"
+        path: sections/section-030/module-02/labs/lab-01/question.md
+      - type: lab
+        title: "Switch Traffic With Blue/Green Lab"
+        path: sections/section-030/module-02/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: continuous-delivery
+        task_kind: deploy
+        tags: [kubernetes, blue-green, rolling-update, rollback]
+        learning_goals:
+          - Set rolling update limits so no capacity is lost
+          - Switch a Service selector to the green release
+          - Keep the blue release and record the rollback command
+        resources:
+          - name: "Kubernetes Deployments"
+            url: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+      - type: reading
+        title: "Summary"
+        path: sections/section-030/module-02/course-05-summary.md
+      - type: quiz
+        title: "Knowledge Check: Deployment Strategies And Progressive Delivery"
+        path: sections/section-030/module-02/quiz.yaml
+        pass_score: 70
+      - type: reading
         title: "Question"
         path: sections/section-030/capstone/labs/lab-01/question.md
       - type: lab
@@ -279,6 +399,46 @@ modules:
         title: "Summary"
         path: sections/section-040/module-01/course-04-summary.md
       - type: reading
+        title: "Repository Layout, Sync Mechanics And Secrets"
+        path: sections/section-040/module-02/course.md
+      - type: reading
+        title: "Repository Layout And Rendering With Kustomize"
+        path: sections/section-040/module-02/course-01-repository-layout-and-rendering-with-kustomize.md
+      - type: reading
+        title: "Sync Waves And Hooks"
+        path: sections/section-040/module-02/course-02-sync-waves-and-hooks.md
+      - type: reading
+        title: "Health, Diff And Sync Options"
+        path: sections/section-040/module-02/course-03-health-diff-and-sync-options.md
+      - type: reading
+        title: "Secrets In A GitOps Repository"
+        path: sections/section-040/module-02/course-04-secrets-in-a-gitops-repository.md
+      - type: reading
+        title: "Question"
+        path: sections/section-040/module-02/labs/lab-01/question.md
+      - type: lab
+        title: "Add A PreSync Hook Through Git Lab"
+        path: sections/section-040/module-02/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: gitops
+        task_kind: deploy
+        tags: [argocd, hooks, presync, kustomize]
+        learning_goals:
+          - Write a PreSync hook Job and list it in an overlay
+          - Deliver it through Git and read the hook phase
+          - Keep the application on its version while the hook runs
+        resources:
+          - name: "Argo CD resource hooks"
+            url: https://argo-cd.readthedocs.io/en/stable/user-guide/resource_hooks/
+      - type: reading
+        title: "Summary"
+        path: sections/section-040/module-02/course-05-summary.md
+      - type: quiz
+        title: "Knowledge Check: Repository Layout, Sync Mechanics And Secrets"
+        path: sections/section-040/module-02/quiz.yaml
+        pass_score: 70
+      - type: reading
         title: "Question"
         path: sections/section-040/capstone/labs/lab-01/question.md
       - type: lab
@@ -343,6 +503,46 @@ modules:
       - type: reading
         title: "Summary"
         path: sections/section-050/module-01/course-04-summary.md
+      - type: reading
+        title: "ApplicationSet Generators, Project Policy And Promotion"
+        path: sections/section-050/module-02/course.md
+      - type: reading
+        title: "Choosing An ApplicationSet Generator"
+        path: sections/section-050/module-02/course-01-choosing-an-applicationset-generator.md
+      - type: reading
+        title: "The Git Directory Generator And Combined Generators"
+        path: sections/section-050/module-02/course-02-the-git-directory-generator-and-combined-generators.md
+      - type: reading
+        title: "Project Roles, Sync Windows And Orphaned Resources"
+        path: sections/section-050/module-02/course-03-project-roles-sync-windows-and-orphaned-resources.md
+      - type: reading
+        title: "Promotion Between Environments"
+        path: sections/section-050/module-02/course-04-promotion-between-environments.md
+      - type: reading
+        title: "Question"
+        path: sections/section-050/module-02/labs/lab-01/question.md
+      - type: lab
+        title: "One ApplicationSet From The Folders Of A Repository Lab"
+        path: sections/section-050/module-02/labs/lab-01
+        difficulty: intermediate
+        estimated_duration: 25m
+        topic: gitops
+        task_kind: deploy
+        tags: [argocd, applicationset, git-generator, exclude]
+        learning_goals:
+          - Generate Applications from the folders of a repository
+          - Exclude one folder from the result
+          - Check that the generated Applications heal drift
+        resources:
+          - name: "Argo CD ApplicationSet generators"
+            url: https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Generators-Git/
+      - type: reading
+        title: "Summary"
+        path: sections/section-050/module-02/course-05-summary.md
+      - type: quiz
+        title: "Knowledge Check: ApplicationSet Generators, Project Policy And Promotion"
+        path: sections/section-050/module-02/quiz.yaml
+        pass_score: 70
       - type: reading
         title: "Question"
         path: sections/section-050/capstone/labs/lab-01/question.md
