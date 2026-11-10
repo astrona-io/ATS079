@@ -172,7 +172,7 @@ modules:
         difficulty: intermediate
         estimated_duration: 20m
         topic: incident-response
-        task_kind: troubleshoot
+        task_kind: troubleshooting
         tags: [incident, rollback, deployment, events]
         learning_goals:
           - Find why a rollout is stuck from the Deployment, the ReplicaSets and the events
@@ -208,7 +208,7 @@ modules:
         difficulty: intermediate
         estimated_duration: 25m
         topic: incident-response
-        task_kind: investigate
+        task_kind: troubleshooting
         tags: [kubectl, detection, slo, incident]
         learning_goals:
           - Tell crashing from not-ready workloads using pod evidence
@@ -233,7 +233,7 @@ modules:
         difficulty: advanced
         estimated_duration: 40m
         topic: incident-response
-        task_kind: troubleshoot
+        task_kind: troubleshooting
         tags: [incident, configmap, readiness, imagepullbackoff]
         learning_goals:
           - Classify three pod failures from their status and events
@@ -279,7 +279,7 @@ modules:
         difficulty: intermediate
         estimated_duration: 25m
         topic: gitops
-        task_kind: deploy
+        task_kind: build
         tags: [argocd, gitops, promotion, delivery]
         learning_goals:
           - Promote a version by changing Git instead of the cluster
@@ -315,7 +315,7 @@ modules:
         difficulty: intermediate
         estimated_duration: 25m
         topic: continuous-delivery
-        task_kind: deploy
+        task_kind: build
         tags: [kubernetes, blue-green, rolling-update, rollback]
         learning_goals:
           - Set rolling update limits so no capacity is lost
@@ -340,7 +340,7 @@ modules:
         difficulty: advanced
         estimated_duration: 40m
         topic: gitops
-        task_kind: deploy
+        task_kind: build
         tags: [argocd, gitops, promotion, environments]
         learning_goals:
           - Promote staging and then production in two separate commits
@@ -386,7 +386,7 @@ modules:
         difficulty: intermediate
         estimated_duration: 25m
         topic: gitops
-        task_kind: troubleshoot
+        task_kind: troubleshooting
         tags: [argocd, gitops, revert, selfheal, prune]
         learning_goals:
           - Undo a bad release with a revert commit that keeps the history
@@ -422,7 +422,7 @@ modules:
         difficulty: intermediate
         estimated_duration: 25m
         topic: gitops
-        task_kind: deploy
+        task_kind: build
         tags: [argocd, hooks, presync, kustomize]
         learning_goals:
           - Write a PreSync hook Job and list it in an overlay
@@ -447,7 +447,7 @@ modules:
         difficulty: advanced
         estimated_duration: 35m
         topic: gitops
-        task_kind: deploy
+        task_kind: build
         tags: [argocd, appproject, policy, destinations]
         learning_goals:
           - Create a project that allows one repository and one destination
@@ -491,7 +491,7 @@ modules:
         difficulty: intermediate
         estimated_duration: 25m
         topic: gitops
-        task_kind: deploy
+        task_kind: build
         tags: [argocd, appproject, application, finalizer]
         learning_goals:
           - Create a project that allows exactly two environments
@@ -527,7 +527,7 @@ modules:
         difficulty: intermediate
         estimated_duration: 25m
         topic: gitops
-        task_kind: deploy
+        task_kind: build
         tags: [argocd, applicationset, git-generator, exclude]
         learning_goals:
           - Generate Applications from the folders of a repository
@@ -552,7 +552,7 @@ modules:
         difficulty: advanced
         estimated_duration: 40m
         topic: gitops
-        task_kind: deploy
+        task_kind: build
         tags: [argocd, applicationset, promotion, environments]
         learning_goals:
           - Generate three environments from one ApplicationSet template
